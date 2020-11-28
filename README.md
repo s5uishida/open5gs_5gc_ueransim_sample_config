@@ -1,0 +1,1 @@
+# open5gs_5gc_ueransim_sample_config
