@@ -44,7 +44,7 @@ The built simulation environment is as follows.
 
 The 5GC / UE / RAN used are as follows.
 - 5GC - Open5GS v2.0.22 or later - https://github.com/open5gs/open5gs
-- UE / RAN - UERANSIM - https://github.com/aligungr/UERANSIM
+- UE / RAN - UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM
 
 Each VMs are as follows.  
 | VM # | SW & Role | IP address | OS | Memory (Min) | HDD (Min) |
@@ -80,7 +80,7 @@ Each DNs are as follows.
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
 - Open5GS v2.0.22 or later - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- UERANSIM - https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
+- UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
 
 <h3 id="changes_cp">Changes in configuration files of Open5GS 5GC C-Plane</h3>
 
@@ -534,7 +534,7 @@ iptables -t nat -A POSTROUTING -s 10.47.0.0/16 ! -o ogstun3 -j MASQUERADE
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
 - Open5GS v2.0.22 or later - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- UERANSIM - https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
+- UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
 
 <h2 id="run">Run Open5GS 5GC and UERANSIM UE / RAN</h2>
 
