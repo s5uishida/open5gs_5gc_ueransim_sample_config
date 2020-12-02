@@ -41,7 +41,7 @@ I created a 5GC mobile network (Internet reachable) for simulation with the aim 
 The following minimum configuration was set as a condition.
 - C-Plane have multiple U-Planes.
 - U-Plane have multiple DNs.
-- Multiple UEs connect to one DN.
+- Multiple UEs connect to same DN.
 
 The built simulation environment is as follows.
 
