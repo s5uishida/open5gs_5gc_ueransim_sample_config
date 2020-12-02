@@ -702,12 +702,12 @@ default dev uesimtun scope link
 
 <h2 id="ping">Ping google.com</h2>
 
-Specify the TUN interface on VM4 (UE) and try `ping`.
+Specify the TUN interface on VM4 (UE0) and try `ping`.
 
 <h3 id="ping_1">Case for going through DN 10.45.0.0/16</h3>
 
 Execute `tcpdump` on VM2 (U-Plane1) and check that the packet goes through `if=ogstun`.
-- `ping google.com` on VM4 (UE)
+- `ping google.com` on VM4 (UE0)
 ```
 # ping google.com -I uesimtun
 PING google.com (216.58.197.14) from 10.45.0.2 uesimtun: 56(84) bytes of data.
@@ -730,7 +730,7 @@ listening on ogstun, link-type RAW (Raw IP), capture size 262144 bytes
 
 You could specify the TUNnel interface `uesimtun` to run almost any applications as in the following example using `ue-bind.sh` tool.
 
-- Run `curl google.com` on VM4 (UE)
+- Run `curl google.com` on VM4 (UE0)
 ```
 # sh ue-binder.sh 10.45.0.2 curl google.com
 <HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
