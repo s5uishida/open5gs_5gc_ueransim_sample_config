@@ -38,6 +38,11 @@ This briefly describes the overall and configuration files.
 
 I created a 5GC mobile network (Internet reachable) for simulation with the aim of creating an environment in which packets can be sent end-to-end with different DNs for each APN.
 
+The following minimum configuration was set as a condition.
+- C-Plane have multiple U-Planes.
+- U-Plane have multiple DNs.
+- Multiple UEs connect to one DN.
+
 The built simulation environment is as follows.
 
 <img src="./images/network-overview.png" title="./images/network-overview.png" width=1000px></img>
