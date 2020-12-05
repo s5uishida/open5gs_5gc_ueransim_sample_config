@@ -508,6 +508,14 @@ Please refer to the following for building Open5GS and UERANSIM respectively.
 
 <h3 id="network_settings_up1">Network settings of Open5GS 5GC U-Plane1</h3>
 
+First, uncomment the next line in the `/etc/sysctl.conf` file and reflect it in the OS.
+```
+net.ipv4.ip_forward=1
+```
+```
+# sysctl -p
+```
+Next, configure the TUNnel interface and NAPT.
 ```
 ip tuntap add name ogstun mode tun
 ip addr add 10.45.0.1/16 dev ogstun
@@ -526,6 +534,14 @@ iptables -t nat -A POSTROUTING -s 10.46.0.0/16 ! -o ogstun2 -j MASQUERADE
 
 <h3 id="network_settings_up2">Network settings of Open5GS 5GC U-Plane2</h3>
 
+First, uncomment the next line in the `/etc/sysctl.conf` file and reflect it in the OS.
+```
+net.ipv4.ip_forward=1
+```
+```
+# sysctl -p
+```
+Next, configure the TUNnel interface and NAPT.
 ```
 ip tuntap add name ogstun3 mode tun
 ip addr add 10.47.0.1/16 dev ogstun3
