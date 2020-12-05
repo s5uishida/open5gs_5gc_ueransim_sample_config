@@ -99,7 +99,7 @@ The following parameters including APN can be used in the logic that selects UPF
 
 - APN
 - TAC (Tracking Area Code)
-- e_CellID & nr_CellID
+- nr_CellID
 
 For the sake of simplicity, I used only APN this time. Please refer to [here](https://github.com/open5gs/open5gs/pull/560#issue-483001043) for the logic to select UPF.
 
