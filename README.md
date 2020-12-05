@@ -95,6 +95,14 @@ Please refer to the following for building Open5GS and UERANSIM respectively.
 
 <h3 id="changes_cp">Changes in configuration files of Open5GS 5GC C-Plane</h3>
 
+The following parameters including APN can be used in the logic that selects UPF as the connection destination by PFCP.
+
+- APN
+- TAC (Tracking Area Code)
+- e_CellID & nr_CellID
+
+For the sake of simplicity, I used only APN this time. Please refer to [here](https://github.com/open5gs/open5gs/pull/560#issue-483001043) for the logic to select UPF.
+
 - `open5gs/install/etc/open5gs/amf.yaml`
 ```diff
 --- amf.yaml.orig       2020-11-27 13:44:15.729869224 +0000
