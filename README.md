@@ -557,6 +557,15 @@ Please refer to the following for building Open5GS and UERANSIM respectively.
 - Open5GS v2.0.22 or later - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
 - UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
 
+Note. Install MongoDB with package manager on Open5GS EPC C-Plane machine.
+```
+# apt update
+# apt install mongodb
+# systemctl start mongodb
+# systemctl enable mongodb
+```
+It is not necessary to install MongoDB on Open5GS EPC U-Plane machines.
+
 <h2 id="run">Run Open5GS 5GC and UERANSIM UE / RAN</h2>
 
 First run the 5GC, then UERANSIM (UE & RAN integrated simulator).
