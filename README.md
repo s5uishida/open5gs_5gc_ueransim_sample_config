@@ -81,6 +81,12 @@ Each DNs are as follows.
 | 10.46.0.0/16 | ogstun2 | internet2 | uesimtun | U-Plane1 |
 | 10.47.0.0/16 | ogstun3 | ims | uesimtun | U-Plane2 |
 
+Additional information.
+
+Open5GS 5GC U-Plane worked fine on Raspberry Pi 4 Model B. I used [Ubuntu 20.04 (64bit) for Raspberry Pi 4](https://ubuntu.com/download/raspberry-pi) as the OS. I think it would be convenient to place a compact U-Plane in the edge environment and use it as an end-point for PDN.
+
+In addition, I have not confirmed the communication performance.
+
 <h2 id="changes">Changes in configuration files of Open5GS 5GC and UERANSIM UE / RAN</h2>
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
