@@ -713,7 +713,7 @@ Configure the UERANSIM's TUNnel interface `uesimtun` as follows.
 
 https://github.com/aligungr/UERANSIM/wiki/Configuring-the-TUN-interface
 
-At that time, for the IP address of `uesimtun` use` 10.45.0.2` assigned from Open5GS 5GC as displayed on the console when running UERANSIM.
+At that time, for the IP address of `uesimtun` use `10.45.0.2` assigned from Open5GS 5GC as displayed on the console when running UERANSIM.
 
 <h4 id="start_tun">Start the TUN Agent of UERANSIM</h4>
 
