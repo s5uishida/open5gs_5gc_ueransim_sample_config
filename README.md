@@ -73,6 +73,7 @@ Subscriber Information (other information is the same) is as follows.
 | UE4 | 001010000000004 | ims | OP |
 
 I registered these information with the Open5GS WebUI.
+In addition, [3GPP TS 35.208](https://www.3gpp.org/DynaReport/35208.htm) "4.3 Test Sets" is published by 3GPP as test data for the 3GPP authentication and key generation functions (MILENAGE).
 
 Each DNs are as follows.
 | DN | TUNnel interface of DN | APN | TUNnel interface of UE | U-Plane # |
