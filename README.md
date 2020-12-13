@@ -573,6 +573,7 @@ Please refer to the following for building Open5GS and UERANSIM respectively.
 - UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
 
 Note. Install MongoDB with package manager on Open5GS 5GC C-Plane machine.
+[MongoDB Compass](https://www.mongodb.com/products/compass) is a convenient tool to look at the MongoDB database.
 ```
 # apt update
 # apt install mongodb
