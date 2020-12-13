@@ -600,6 +600,10 @@ sleep 5
 ./install/bin/open5gs-udmd &
 ./install/bin/open5gs-udrd &
 ```
+Note. PCF was added in Open5GS v2.1.0 released on 2020.12.11. Since PCF connects only to SBI, `pcf.yaml` is used as it is in this configuration example. Please add the startup process of `open5gs-pcfd` as follows.
+```
+./install/bin/open5gs-pcfd &
+```
 
 <h3 id="run_up">Run Open5GS 5GC U-Plane1 & U-Plane2</h3>
 
