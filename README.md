@@ -26,8 +26,10 @@ This briefly describes the overall and configuration files.
   - [Run Open5GS 5GC C-Plane](#run_cp)
   - [Run Open5GS 5GC U-Plane1 & U-Plane2](#run_up)
   - [Run UERANSIM](#run_ueran)
-    - [NG-Setup between gNodeB and 5GC and initialize UE & gNodeB](#ngsetup)
-    - [Register UE with 5GC and establish a PDU session](#register_and_pdu_session_establishment)
+    - [Start UERANSIM agent](#start_nr_agent)
+    - [Create a new gNB](#create_new_gnb)
+    - [Create a new UE](#create_new_ue)
+    - [Create a new PDU session](#create_new_pdu_session)
     - [Configure the TUNnel interface of UERANSIM](#config_tun)
     - [Start the TUN Agent of UERANSIM](#start_tun)
 - [Ping google.com](#ping)
@@ -629,91 +631,107 @@ Please refer to the following for usage of UERANSIM.
 
 https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
 
-<h4 id="ngsetup">NG-Setup between gNodeB and 5GC and initialize UE & gNodeB</h4>
+<h4 id="start_nr_agent">Start UERANSIM agent</h4>
 
-Run UERANSIM as follows.
+Start UERANSIM agent as follows.
 ```
-# sh run.sh 
+# ./nr-agent
+UERANSIM v2.0.1
 INFO: Selected profile: "open5gs"
-2020-11-28 23:17:07.815 [INFO] [CONN] [air] TUN Bridge has been started.
-2020-11-28 23:17:07.898 [INFO] [CONN] [gnb-1] Trying to establish SCTP connection... (192.168.0.111:38412)
-2020-11-28 23:17:07.910 [INFO] [CONN] [gnb-1] SCTP connection established
-2020-11-28 23:17:08.575 [SUCC] [PROC] [gnb-1] NGSetup procedure is successful
-2020-11-28 23:17:08.628 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_DEREGISTERED/MM_DEREGISTERED__PLMN_SEARCH
-2020-11-28 23:17:09.633 [INFO] [FLOW] [ue-001010000000000] UE connected to gNB.
-2020-11-28 23:17:09.641 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_DEREGISTERED/MM_DEREGISTERED__NORMAL_SERVICE
-2020-11-28 23:17:09.732 [SUCC] [SYS] All UE and gNBs are initialized.
------------------------------------------------------------------------------
-List of pre-defined procedure tests:
-1) initial-registration
-2) periodic-registration
-3) de-registration
-4) pdu-session-establishment
-Selection:  
+2020-12-14 13:38:15.353 [INFO] [CONN] [air] TUN Bridge has been started.
+```
+
+<h4 id="create_new_gnb">Create a new gNB</h4>
+
+Create a new gNB as follows.
+```
+# ./nr-cli gnb-create
+gNB created with id: 1.
+```
+The UERANSIM agent log when executed is as follows.
+```
+2020-12-14 13:39:25.538 [INFO] [CONN] [gnb-1] Trying to establish SCTP connection... (192.168.0.111:38412)
+2020-12-14 13:39:25.560 [INFO] [CONN] [gnb-1] SCTP connection established
+2020-12-14 13:39:26.151 [SUCC] [PROC] [gnb-1] NGSetup procedure is successful
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-11/28 23:17:07.919: [amf] INFO: gNB-S1 accepted[192.168.0.131]:57859 in ng-path module (../src/amf/ngap-sctp.c:107)
-11/28 23:17:07.919: [amf] INFO: gNB-N1 accepted[192.168.0.131] in master_sm module (../src/amf/amf-sm.c:555)
-11/28 23:17:07.919: [amf] INFO: [Added] Number of gNBs is now 1 (../src/amf/context.c:866)
+12/14 13:39:25.552: [amf] INFO: gNB-S1 accepted[192.168.0.131]:34920 in ng-path module (../src/amf/ngap-sctp.c:107)
+12/14 13:39:25.552: [amf] INFO: gNB-N1 accepted[192.168.0.131] in master_sm module (../src/amf/amf-sm.c:538)
+12/14 13:39:25.552: [amf] INFO: [Added] Number of gNBs is now 1 (../src/amf/context.c:869)
 ```
 
-<h4 id="register_and_pdu_session_establishment">Register UE with 5GC and establish a PDU session</h4>
+<h4 id="create_new_ue">Create a new UE</h4>
 
-Select procedure No.4 to execute registration and PDU session establishment.
+Create a new UE as follows.
 ```
------------------------------------------------------------------------------
-List of pre-defined procedure tests:
-1) initial-registration
-2) periodic-registration
-3) de-registration
-4) pdu-session-establishment
-Selection: 
-4
-2020-11-28 23:18:32.057 [INFO] [SYS] Starting predefined procedure test: "pdu-session-establishment"
-2020-11-28 23:18:32.074 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_REGISTERED_INITIATED/MM_REGISTERED_INITIATED__NA
-2020-11-28 23:18:33.427 [INFO] [STATE] [ue-001010000000000] UE switches to state: RM_REGISTERED
-2020-11-28 23:18:33.432 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_REGISTERED/MM_REGISTERED__NORMAL_SERVICE
-2020-11-28 23:18:33.434 [SUCC] [PROC] [ue-001010000000000] Registration is successful
-2020-11-28 23:18:33.734 [INFO] [UEAPP] [ue-001010000000000] IPv4 connection setup with local IP: 10.45.0.2
-2020-11-28 23:18:33.746 [INFO] [TUN] [air] IPv4 PDU session established (ue-001010000000000, 10.45.0.2)
-2020-11-28 23:18:33.747 [INFO] [FLOW] [ue-001010000000000] PDU session established: PDU session identity value 1
-2020-11-28 23:18:33.750 [SUCC] [PROC] [ue-001010000000000] PDU Session Establishment is successful
-2020-11-28 23:18:33.774 [SUCC] [PROC] [gnb-1] PDU Session Establishment is successful
-2020-11-28 23:18:33.808 [SUCC] [UEAPP] [ue-001010000000000] Ping reply from google.com (216.58.197.14) in 36 ms
+# ./nr-cli ue-create
+UE created: imsi-001010000000000.
+```
+The UERANSIM agent log when executed is as follows.
+```
+2020-12-14 13:40:48.212 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_DEREGISTERED/MM_DEREGISTERED__PLMN_SEARCH
+2020-12-14 13:40:48.432 [INFO] [CONN] [ue-001010000000000] UE connected to gNB.
+2020-12-14 13:40:48.444 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_DEREGISTERED/MM_DEREGISTERED__NORMAL_SERVICE
+2020-12-14 13:40:48.535 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_REGISTERED_INITIATED/MM_REGISTERED_INITIATED__NA
+2020-12-14 13:40:49.672 [INFO] [STATE] [ue-001010000000000] UE switches to state: RM_REGISTERED
+2020-12-14 13:40:49.674 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_REGISTERED/MM_REGISTERED__NORMAL_SERVICE
+2020-12-14 13:40:49.675 [SUCC] [PROC] [ue-001010000000000] Registration is successful
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-11/28 23:18:32.319: [amf] INFO: [Added] Number of gNB-UEs is now 1 (../src/amf/context.c:1699)
-11/28 23:18:32.319: [amf] INFO: [suci-0-001-01-0000-0-0-0000000000] Unknown UE by SUCI (../src/amf/context.c:1281)
-11/28 23:18:32.319: [amf] INFO: [Added] Number of AMF-UEs is now 1 (../src/amf/context.c:1116)
-11/28 23:18:32.319: [app] WARNING: Try to discover [AUSF] (../lib/sbi/path.c:56)
-11/28 23:18:32.320: [amf] INFO: [c2c00386-31cf-41eb-b432-79c6812cb3dd] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
-11/28 23:18:32.320: [amf] INFO: [c2c00386-31cf-41eb-b432-79c6812cb3dd] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
-11/28 23:18:32.320: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
-11/28 23:18:32.320: [ausf] INFO: [c2c0296a-31cf-41eb-99e6-dfaaa1762ed2] (NF-discover) NF registered (../src/ausf/nnrf-handler.c:248)
-11/28 23:18:32.321: [ausf] INFO: [c2c0296a-31cf-41eb-99e6-dfaaa1762ed2] (NF-discover) NF Profile updated (../src/ausf/nnrf-handler.c:292)
-11/28 23:18:33.236: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
-11/28 23:18:33.237: [amf] INFO: [c2c0296a-31cf-41eb-99e6-dfaaa1762ed2] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
-11/28 23:18:33.237: [amf] INFO: [c2c0296a-31cf-41eb-99e6-dfaaa1762ed2] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
-11/28 23:18:33.564: [amf] INFO: [Added] Number of AMF-Sessions is now 1 (../src/amf/context.c:1711)
-11/28 23:18:33.564: [smf] INFO: [Added] Number of SMF-UEs is now 1 (../src/smf/context.c:531)
-11/28 23:18:33.565: [smf] INFO: [Added] Number of SMF-Sessions is now 1 (../src/smf/context.c:1848)
-11/28 23:18:33.565: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
-11/28 23:18:33.566: [smf] INFO: [c2c0296a-31cf-41eb-99e6-dfaaa1762ed2] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
-11/28 23:18:33.566: [smf] INFO: [c2c0296a-31cf-41eb-99e6-dfaaa1762ed2] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
-11/28 23:18:33.567: [smf] INFO: UE SUPI:[imsi-001010000000000] DNN:[internet] IPv4:[10.45.0.2] IPv6:[] (../src/smf/nudm-handler.c:294)
-11/28 23:18:33.631: [app] WARNING: Try to discover [AMF] (../lib/sbi/path.c:56)
-11/28 23:18:33.632: [smf] INFO: [c2c2459c-31cf-41eb-a263-5ba12f0239cf] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
-11/28 23:18:33.632: [smf] INFO: [c2c2459c-31cf-41eb-a263-5ba12f0239cf] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
+12/14 13:40:48.759: [amf] INFO: [Added] Number of gNB-UEs is now 1 (../src/amf/context.c:1722)
+12/14 13:40:48.759: [amf] INFO: [suci-0-001-01-0000-0-0-0000000000] Unknown UE by SUCI (../src/amf/context.c:1289)
+12/14 13:40:48.759: [amf] INFO: [Added] Number of AMF-UEs is now 1 (../src/amf/context.c:1121)
+12/14 13:40:48.759: [app] WARNING: Try to discover [AUSF] (../lib/sbi/path.c:56)
+12/14 13:40:48.759: [amf] INFO: [909767d4-3e11-41eb-8f7e-f7e40c3bfd7b] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
+12/14 13:40:48.759: [amf] INFO: [909767d4-3e11-41eb-8f7e-f7e40c3bfd7b] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
+12/14 13:40:49.475: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
+12/14 13:40:49.476: [amf] INFO: [909888d0-3e11-41eb-8b39-ade30102bf44] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
+12/14 13:40:49.476: [amf] INFO: [909888d0-3e11-41eb-8b39-ade30102bf44] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
+12/14 13:40:49.479: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:56)
+12/14 13:40:49.480: [amf] INFO: [9097d3ae-3e11-41eb-802c-c3fb4f521c00] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
+12/14 13:40:49.480: [amf] INFO: [9097d3ae-3e11-41eb-802c-c3fb4f521c00] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
 ```
-The Open5GS U-Plane1 log when executed is as follows. 
+
+<h4 id="create_new_pdu_session">Create a new PDU session</h4>
+
+Create a new PDU session as follows.
 ```
-11/28 23:18:33.603: [upf] INFO: UE F-SEID[CP:0x1,UP:0x1] APN[internet] PDN-Type[1] IPv4[10.45.0.2] IPv6[] (../src/upf/context.c:492)
-11/28 23:18:33.603: [upf] INFO: [Added] Number of UPF-Sessions is now 1 (../src/upf/context.c:501)
-11/28 23:18:33.785: [gtp] INFO: gtp_connect() [192.168.0.131]:2152 (../lib/gtp/path.c:58)
+# ./nr-cli session-create 001010000000000
+PDU session establishment has been triggered.
 ```
-On the UERANSIM console, UE0 has been assigned the IP address `10.45.0.2` from Open5GS 5GC.
+The UERANSIM agent log when executed is as follows.
+```
+2020-12-14 13:43:41.091 [INFO] [UEAPP] [ue-001010000000000] IPv4 connection setup with local IP: 10.45.0.2
+2020-12-14 13:43:41.096 [INFO] [TUN] [air] IPv4 PDU session established (ue-001010000000000, 10.45.0.2)
+2020-12-14 13:43:41.096 [INFO] [FLOW] [ue-001010000000000] PDU session established: PDU session identity value 1
+2020-12-14 13:43:41.098 [SUCC] [PROC] [ue-001010000000000] PDU Session Establishment is successful
+2020-12-14 13:43:41.110 [SUCC] [PROC] [gnb-1] PDU Session Establishment is successful
+```
+The Open5GS C-Plane log when executed is as follows.
+```
+12/14 13:43:40.703: [amf] INFO: [Added] Number of AMF-Sessions is now 1 (../src/amf/context.c:1734)
+12/14 13:43:40.704: [smf] INFO: [Added] Number of SMF-UEs is now 1 (../src/smf/context.c:532)
+12/14 13:43:40.704: [smf] INFO: [Added] Number of SMF-Sessions is now 1 (../src/smf/context.c:1873)
+12/14 13:43:40.704: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
+12/14 13:43:40.705: [smf] INFO: [909888d0-3e11-41eb-8b39-ade30102bf44] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
+12/14 13:43:40.705: [smf] INFO: [909888d0-3e11-41eb-8b39-ade30102bf44] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
+12/14 13:43:40.707: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:56)
+12/14 13:43:40.707: [smf] INFO: [9097d3ae-3e11-41eb-802c-c3fb4f521c00] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
+12/14 13:43:40.708: [smf] INFO: [9097d3ae-3e11-41eb-802c-c3fb4f521c00] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
+12/14 13:43:40.709: [smf] INFO: UE SUPI:[imsi-001010000000000] DNN:[internet] IPv4:[10.45.0.2] IPv6:[] (../src/smf/npcf-handler.c:131)
+12/14 13:43:40.972: [app] WARNING: Try to discover [AMF] (../lib/sbi/path.c:56)
+12/14 13:43:40.974: [smf] INFO: [9098dd62-3e11-41eb-934a-d5747ff49191] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
+12/14 13:43:40.975: [smf] INFO: [9098dd62-3e11-41eb-934a-d5747ff49191] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
+```
+The Open5GS U-Plane1 log when executed is as follows.
+```
+12/14 13:43:40.847: [upf] INFO: [Added] Number of UPF-Sessions is now 1 (../src/upf/context.c:445)
+12/14 13:43:40.847: [upf] INFO: UE F-SEID[CP:0x1,UP:0x1] APN[internet] PDN-Type[1] IPv4[10.45.0.2] IPv6[] (../src/upf/context.c:603)
+12/14 13:43:41.110: [gtp] INFO: gtp_connect() [192.168.0.131]:2152 (../lib/gtp/path.c:58)
+```
+On UERANSIM agent log, UE0 has been assigned the IP address `10.45.0.2` from Open5GS 5GC.
 
 <h4 id="config_tun">Configure the TUNnel interface of UERANSIM</h4>
 
@@ -732,11 +750,11 @@ https://github.com/aligungr/UERANSIM/wiki/Using-the-TUN-interface
 The result of `ip addr show` on VM4 (UE0) is as follows.
 ```
 ...
-4: uesimtun: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 500
+9: uesimtun: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 500
     link/none 
     inet 10.45.0.2/32 scope global uesimtun
        valid_lft forever preferred_lft forever
-    inet6 fe80::458a:1fb6:c4c7:38b8/64 scope link stable-privacy 
+    inet6 fe80::3ff2:b9e1:bef0:8619/64 scope link stable-privacy 
        valid_lft forever preferred_lft forever
 ...
 ```
@@ -763,21 +781,21 @@ Execute `tcpdump` on VM2 (U-Plane1) and check that the packet goes through `if=o
 ```
 # ping google.com -I uesimtun
 PING google.com (216.58.197.14) from 10.45.0.2 uesimtun: 56(84) bytes of data.
-64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=1 ttl=114 time=12.3 ms
-64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=2 ttl=114 time=10.4 ms
-64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=3 ttl=114 time=10.5 ms
+64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=1 ttl=114 time=32.1 ms
+64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=2 ttl=114 time=57.5 ms
+64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=3 ttl=114 time=42.1 ms
 ```
 - Run `tcpdump` on VM2 (U-Plane1)
 ```
 # tcpdump -i ogstun
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on ogstun, link-type RAW (Raw IP), capture size 262144 bytes
-23:21:21.102473 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 2, seq 1, length 64
-23:21:21.113223 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 2, seq 1, length 64
-23:21:22.103785 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 2, seq 2, length 64
-23:21:22.112767 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 2, seq 2, length 64
-23:21:23.105127 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 2, seq 3, length 64
-23:21:23.113767 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 2, seq 3, length 64
+13:59:04.905666 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 12, seq 1, length 64
+13:59:04.936518 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 12, seq 1, length 64
+13:59:05.908516 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 12, seq 2, length 64
+13:59:05.962596 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 12, seq 2, length 64
+13:59:06.909928 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 12, seq 3, length 64
+13:59:06.948457 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 12, seq 3, length 64
 ```
 
 You could specify the TUNnel interface `uesimtun` to run almost any applications as in the following example using `ue-bind.sh` tool.
@@ -794,17 +812,17 @@ The document has moved
 ```
 - Run `tcpdump` on VM2 (U-Plane1)
 ```
-23:22:27.677825 IP 10.45.0.2.50485 > kix06s02-in-f14.1e100.net.http: Flags [S], seq 1409580292, win 64240, options [mss 1460,sackOK,TS val 2628517912 ecr 0,nop,wscale 7], length 0
-23:22:27.686822 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.50485: Flags [S.], seq 3072001, ack 1409580293, win 65535, options [mss 1460], length 0
-23:22:27.688045 IP 10.45.0.2.50485 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 1, win 64240, length 0
-23:22:27.688268 IP 10.45.0.2.50485 > kix06s02-in-f14.1e100.net.http: Flags [P.], seq 1:75, ack 1, win 64240, length 74: HTTP: GET / HTTP/1.1
-23:22:27.688401 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.50485: Flags [.], ack 75, win 65535, length 0
-23:22:27.738265 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.50485: Flags [P.], seq 1:529, ack 75, win 65535, length 528: HTTP: HTTP/1.1 301 Moved Permanently
-23:22:27.741060 IP 10.45.0.2.50485 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 529, win 63784, length 0
-23:22:27.741102 IP 10.45.0.2.50485 > kix06s02-in-f14.1e100.net.http: Flags [F.], seq 75, ack 529, win 63784, length 0
-23:22:27.741224 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.50485: Flags [.], ack 76, win 65535, length 0
-23:22:27.750463 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.50485: Flags [F.], seq 529, ack 76, win 65535, length 0
-23:22:27.754020 IP 10.45.0.2.50485 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 530, win 63784, length 0
+14:01:48.794176 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [S], seq 2727876800, win 64240, options [mss 1460,sackOK,TS val 2653630003 ecr 0,nop,wscale 7], length 0
+14:01:48.835181 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [S.], seq 18432001, ack 2727876801, win 65535, options [mss 1460], length 0
+14:01:48.836531 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 1, win 64240, length 0
+14:01:48.837943 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [P.], seq 1:75, ack 1, win 64240, length 74: HTTP: GET / HTTP/1.1
+14:01:48.838186 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [.], ack 75, win 65535, length 0
+14:01:49.158308 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [P.], seq 1:529, ack 75, win 65535, length 528: HTTP: HTTP/1.1 301 Moved Permanently
+14:01:49.167092 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 529, win 63784, length 0
+14:01:49.168066 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [F.], seq 75, ack 529, win 63784, length 0
+14:01:49.168953 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [.], ack 76, win 65535, length 0
+14:01:49.210434 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [F.], seq 529, ack 76, win 65535, length 0
+14:01:49.213840 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 530, win 63784, length 0
 ```
 Please note that the `ping` tool does not work with `ue-binder.sh`. Please refer to [here](https://github.com/aligungr/UERANSIM/issues/186#issuecomment-729534464) for the reason.
 
