@@ -744,7 +744,7 @@ At that time, for the IP address of `uesimtun` use `10.45.0.2` assigned from Ope
 
 <h4 id="start_tun">Start the TUN Agent of UERANSIM</h4>
 
-Start the TUN agent as follows. At that time, executing run.sh in advance to establish a PDU session.
+Start the TUN agent as follows.
 
 https://github.com/aligungr/UERANSIM/wiki/Using-the-TUN-interface
 
