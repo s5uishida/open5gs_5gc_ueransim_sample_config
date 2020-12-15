@@ -34,6 +34,7 @@ This briefly describes the overall and configuration files.
     - [Start the TUN Agent of UERANSIM](#start_tun)
 - [Ping google.com](#ping)
   - [Case for going through DN 10.45.0.0/16](#ping_1)
+- [Changelog (summary)](#changelog)
 
 ---
 <h2 id="overview">Overview of Open5GS 5GC Simulation Mobile Network</h2>
@@ -832,3 +833,9 @@ You could now create the end-to-end TUN interfaces on the DN and send any packet
 
 ---
 In investigating 5G SA, I have built a simulation environment and can now use a very useful system for investigating 5GC and MEC of 5G SA mobile network. I would like to thank the excellent developers and all the contributors of Open5GS and UERANSIM.
+
+<h2 id="changelog">Changelog (summary)</h2>
+
+- [2020.12.14] Changed to UERANSIM v2.0.1 and updated the operation procedure.
+- [2020.12.13] Changed to Open5GS v2.1.0 and added a little about PCF.
+- [2020.11.29] Initial release.
