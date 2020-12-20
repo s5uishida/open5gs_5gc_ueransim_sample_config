@@ -819,12 +819,12 @@ PING google.com (216.58.197.14) from 10.45.0.2 uesimtun: 56(84) bytes of data.
 # tcpdump -i ogstun
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on ogstun, link-type RAW (Raw IP), capture size 262144 bytes
-00:45:53.832361 IP 10.45.0.2 > kix05s02-in-f14.1e100.net: ICMP echo request, id 1, seq 1, length 64
-00:45:53.832404 IP 10.45.0.2 > kix05s02-in-f14.1e100.net: ICMP echo request, id 2, seq 2, length 64
-00:45:53.832918 IP 10.45.0.2 > kix05s02-in-f14.1e100.net: ICMP echo request, id 3, seq 3, length 64
-00:45:53.842472 IP kix05s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 1, seq 1, length 64
-00:45:53.842483 IP kix05s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 2, seq 2, length 64
-00:45:53.842584 IP kix05s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 3, seq 3, length 64
+00:49:51.760464 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 1, seq 1, length 64
+00:49:51.774011 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 1, seq 1, length 64
+00:49:52.762438 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 1, seq 2, length 64
+00:49:52.773022 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 1, seq 2, length 64
+00:49:53.764560 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 1, seq 3, length 64
+00:49:53.772898 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 1, seq 3, length 64
 ```
 
 You could specify the TUNnel interface `uesimtun` to run almost any applications as in the following example using `ue-bind.sh` tool.
