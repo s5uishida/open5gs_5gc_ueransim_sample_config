@@ -245,281 +245,311 @@ For the sake of simplicity, I used only APN this time. Please refer to [here](ht
 
 - `UERANSIM/config/open5gs/gnb.yaml`
 ```diff
---- gnb.yaml.orig       2020-11-28 22:02:01.292709319 +0000
-+++ gnb.yaml    2020-11-28 22:05:54.480471464 +0000
-@@ -2,19 +2,19 @@
- tac: 1
- nci: '0000000100'
- 
--host: 127.0.0.1
-+host: 192.168.0.131
- gtpPort: 2152
- 
+--- gnb.yaml.orig       2020-12-19 22:57:20.682431377 +0000
++++ gnb.yaml    2020-12-19 23:00:55.097410302 +0000
+@@ -1,7 +1,7 @@
+ # MCC and MNC values of the gNB
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
+ # ID of the gNB inside of its PLMN
+ gnbId: 1
+@@ -13,14 +13,14 @@
+ nci: '0000000100'
+ 
+ # gNB's local IP address for N2 interface.
+-ngapIp: 127.0.0.1
++ngapIp: 192.168.0.131
+ 
+ # gNB's local IP address for N3 interface.
+-gtpIp: 127.0.0.1
++gtpIp: 192.168.0.131
+ 
+ # List of AMF address information
  amfConfigs:
--  - host: 127.0.0.5
-+  - host: 192.168.0.111
-     port: 38412
+-  - ngapIp: 127.0.0.5
++  - ngapIp: 192.168.0.111
+     ngapPort: 38412
  
- nssais:
-   - sst: '0x01'
-     sd: '0x010203'
- 
--ignoreStreamIds: true
-\ No newline at end of file
-+ignoreStreamIds: true
+ # List of NSSAIs supported by this gNB
 ```
 - `UERANSIM/config/open5gs/ue.yaml`
 ```diff
---- ue.yaml.orig        2020-11-24 16:48:26.000000000 +0000
-+++ ue.yaml     2020-11-24 16:51:56.000000000 +0000
-@@ -2,10 +2,10 @@
- op: 'E8ED289DEBA952E4283B54E88E6183CA'
- amf: '8000'
- imei: '356938035643803'
+--- ue.yaml.orig        2020-12-19 22:57:20.682431377 +0000
++++ ue.yaml     2020-12-19 23:01:48.912957811 +0000
+@@ -1,10 +1,10 @@
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
 -supi: 'imsi-901700000000003'
 +supi: 'imsi-001010000000000'
+ 
+ # MCC and MNC values of the UE.
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
- smsOverNasSupported: true
- dnn: 'internet'
+ # Permanent subscription key.
+ key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
 ```
 
 <h4 id="changes_ue1">Changes in configuration files of UE1 (IMSI-001010000000001) & RAN on VM5</h4>
 
 - `UERANSIM/config/open5gs/gnb.yaml`
 ```diff
---- gnb.yaml.orig       2020-11-28 22:02:01.292709319 +0000
-+++ gnb.yaml    2020-11-28 22:53:38.523552476 +0000
-@@ -2,19 +2,19 @@
- tac: 1
- nci: '0000000100'
- 
--host: 127.0.0.1
-+host: 192.168.0.132
- gtpPort: 2152
- 
+--- gnb.yaml.orig       2020-12-19 23:03:23.236717920 +0000
++++ gnb.yaml    2020-12-19 23:06:03.929256572 +0000
+@@ -1,7 +1,7 @@
+ # MCC and MNC values of the gNB
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
+ # ID of the gNB inside of its PLMN
+ gnbId: 1
+@@ -13,14 +13,14 @@
+ nci: '0000000100'
+ 
+ # gNB's local IP address for N2 interface.
+-ngapIp: 127.0.0.1
++ngapIp: 192.168.0.132
+ 
+ # gNB's local IP address for N3 interface.
+-gtpIp: 127.0.0.1
++gtpIp: 192.168.0.132
+ 
+ # List of AMF address information
  amfConfigs:
--  - host: 127.0.0.5
-+  - host: 192.168.0.111
-     port: 38412
+-  - ngapIp: 127.0.0.5
++  - ngapIp: 192.168.0.111
+     ngapPort: 38412
  
- nssais:
-   - sst: '0x01'
-     sd: '0x010203'
- 
--ignoreStreamIds: true
-\ No newline at end of file
-+ignoreStreamIds: true
+ # List of NSSAIs supported by this gNB
 ```
 - `UERANSIM/config/open5gs/ue.yaml`
 ```diff
---- ue.yaml.orig        2020-11-24 16:48:26.000000000 +0000
-+++ ue.yaml     2020-11-24 16:56:36.000000000 +0000
-@@ -2,13 +2,13 @@
- op: 'E8ED289DEBA952E4283B54E88E6183CA'
- amf: '8000'
- imei: '356938035643803'
+--- ue.yaml.orig        2020-12-19 23:03:23.236717920 +0000
++++ ue.yaml     2020-12-19 23:06:51.153411954 +0000
+@@ -1,10 +1,10 @@
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
 -supi: 'imsi-901700000000003'
 +supi: 'imsi-001010000000001'
+ 
+ # MCC and MNC values of the UE.
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
- smsOverNasSupported: true
+ # Permanent subscription key.
+ key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
+@@ -19,7 +19,7 @@
+ imei: '356938035643803'
+ 
+ # Domain Network Name (DNN)
 -dnn: 'internet'
 +dnn: 'internet2'
  
+ # List of NSSAIs for the UE
  requestedNssai:
-   - sst:
 ```
 
 <h4 id="changes_ue2">Changes in configuration files of UE2 (IMSI-001010000000002) & RAN on VM6</h4>
 
 - `UERANSIM/config/open5gs/gnb.yaml`
 ```diff
---- gnb.yaml.orig       2020-11-28 22:02:01.292709319 +0000
-+++ gnb.yaml    2020-11-28 22:54:49.234937288 +0000
-@@ -2,19 +2,19 @@
- tac: 1
- nci: '0000000100'
- 
--host: 127.0.0.1
-+host: 192.168.0.133
- gtpPort: 2152
- 
+--- gnb.yaml.orig       2020-12-19 23:08:04.797066069 +0000
++++ gnb.yaml    2020-12-19 23:10:36.681379052 +0000
+@@ -1,7 +1,7 @@
+ # MCC and MNC values of the gNB
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
+ # ID of the gNB inside of its PLMN
+ gnbId: 1
+@@ -13,14 +13,14 @@
+ nci: '0000000100'
+ 
+ # gNB's local IP address for N2 interface.
+-ngapIp: 127.0.0.1
++ngapIp: 192.168.0.133
+ 
+ # gNB's local IP address for N3 interface.
+-gtpIp: 127.0.0.1
++gtpIp: 192.168.0.133
+ 
+ # List of AMF address information
  amfConfigs:
--  - host: 127.0.0.5
-+  - host: 192.168.0.111
-     port: 38412
+-  - ngapIp: 127.0.0.5
++  - ngapIp: 192.168.0.111
+     ngapPort: 38412
  
- nssais:
-   - sst: '0x01'
-     sd: '0x010203'
- 
--ignoreStreamIds: true
-\ No newline at end of file
-+ignoreStreamIds: true
+ # List of NSSAIs supported by this gNB
 ```
 - `UERANSIM/config/open5gs/ue.yaml`
 ```diff
---- ue.yaml.orig        2020-11-24 16:48:26.000000000 +0000
-+++ ue.yaml     2020-11-28 09:04:13.232768088 +0000
-@@ -2,13 +2,13 @@
- op: 'E8ED289DEBA952E4283B54E88E6183CA'
- amf: '8000'
- imei: '356938035643803'
+--- ue.yaml.orig        2020-12-19 23:08:04.797066069 +0000
++++ ue.yaml     2020-12-19 23:11:30.849482705 +0000
+@@ -1,10 +1,10 @@
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
 -supi: 'imsi-901700000000003'
 +supi: 'imsi-001010000000002'
+ 
+ # MCC and MNC values of the UE.
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
- smsOverNasSupported: true
+ # Permanent subscription key.
+ key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
+@@ -19,7 +19,7 @@
+ imei: '356938035643803'
+ 
+ # Domain Network Name (DNN)
 -dnn: 'internet'
 +dnn: 'internet2'
  
+ # List of NSSAIs for the UE
  requestedNssai:
-   - sst:
 ```
 
 <h4 id="changes_ue3">Changes in configuration files of UE3 (IMSI-001010000000003) & RAN on VM7</h4>
 
 - `UERANSIM/config/open5gs/gnb.yaml`
 ```diff
---- gnb.yaml.orig       2020-11-28 22:02:01.292709319 +0000
-+++ gnb.yaml    2020-11-28 22:55:27.390605367 +0000
-@@ -2,19 +2,19 @@
- tac: 1
- nci: '0000000100'
- 
--host: 127.0.0.1
-+host: 192.168.0.134
- gtpPort: 2152
- 
+--- gnb.yaml.orig       2020-12-19 23:12:41.770999172 +0000
++++ gnb.yaml    2020-12-19 23:15:25.307608337 +0000
+@@ -1,7 +1,7 @@
+ # MCC and MNC values of the gNB
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
+ # ID of the gNB inside of its PLMN
+ gnbId: 1
+@@ -13,14 +13,14 @@
+ nci: '0000000100'
+ 
+ # gNB's local IP address for N2 interface.
+-ngapIp: 127.0.0.1
++ngapIp: 192.168.0.134
+ 
+ # gNB's local IP address for N3 interface.
+-gtpIp: 127.0.0.1
++gtpIp: 192.168.0.134
+ 
+ # List of AMF address information
  amfConfigs:
--  - host: 127.0.0.5
-+  - host: 192.168.0.111
-     port: 38412
+-  - ngapIp: 127.0.0.5
++  - ngapIp: 192.168.0.111
+     ngapPort: 38412
  
- nssais:
-   - sst: '0x01'
-     sd: '0x010203'
- 
--ignoreStreamIds: true
-\ No newline at end of file
-+ignoreStreamIds: true
+ # List of NSSAIs supported by this gNB
 ```
 - `UERANSIM/config/open5gs/ue.yaml`
 ```diff
---- ue.yaml.orig        2020-11-24 16:48:26.000000000 +0000
-+++ ue.yaml     2020-11-24 16:55:50.000000000 +0000
-@@ -2,13 +2,13 @@
- op: 'E8ED289DEBA952E4283B54E88E6183CA'
- amf: '8000'
- imei: '356938035643803'
+--- ue.yaml.orig        2020-12-19 23:12:41.770999172 +0000
++++ ue.yaml     2020-12-19 23:16:05.603747377 +0000
+@@ -1,10 +1,10 @@
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
 -supi: 'imsi-901700000000003'
 +supi: 'imsi-001010000000003'
+ 
+ # MCC and MNC values of the UE.
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
- smsOverNasSupported: true
+ # Permanent subscription key.
+ key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
+@@ -19,7 +19,7 @@
+ imei: '356938035643803'
+ 
+ # Domain Network Name (DNN)
 -dnn: 'internet'
 +dnn: 'ims'
  
+ # List of NSSAIs for the UE
  requestedNssai:
-   - sst:
 ```
 
 <h4 id="changes_ue4">Changes in configuration files of UE4 (IMSI-001010000000004) & RAN on VM8</h4>
 
 - `UERANSIM/config/open5gs/gnb.yaml`
 ```diff
---- gnb.yaml.orig       2020-11-28 22:02:01.292709319 +0000
-+++ gnb.yaml    2020-11-28 22:55:56.074355837 +0000
-@@ -2,19 +2,19 @@
- tac: 1
- nci: '0000000100'
- 
--host: 127.0.0.1
-+host: 192.168.0.135
- gtpPort: 2152
- 
+--- gnb.yaml.orig       2020-12-19 23:17:01.179908465 +0000
++++ gnb.yaml    2020-12-19 23:21:45.952401622 +0000
+@@ -1,7 +1,7 @@
+ # MCC and MNC values of the gNB
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
+ # ID of the gNB inside of its PLMN
+ gnbId: 1
+@@ -13,14 +13,14 @@
+ nci: '0000000100'
+ 
+ # gNB's local IP address for N2 interface.
+-ngapIp: 127.0.0.1
++ngapIp: 192.168.0.135
+ 
+ # gNB's local IP address for N3 interface.
+-gtpIp: 127.0.0.1
++gtpIp: 192.168.0.135
+ 
+ # List of AMF address information
  amfConfigs:
--  - host: 127.0.0.5
-+  - host: 192.168.0.111
-     port: 38412
+-  - ngapIp: 127.0.0.5
++  - ngapIp: 192.168.0.111
+     ngapPort: 38412
  
- nssais:
-   - sst: '0x01'
-     sd: '0x010203'
- 
--ignoreStreamIds: true
-\ No newline at end of file
-+ignoreStreamIds: true
+ # List of NSSAIs supported by this gNB
 ```
 - `UERANSIM/config/open5gs/ue.yaml`
 ```diff
---- ue.yaml.orig        2020-11-24 16:48:26.000000000 +0000
-+++ ue.yaml     2020-11-27 14:06:33.000000000 +0000
-@@ -2,13 +2,13 @@
- op: 'E8ED289DEBA952E4283B54E88E6183CA'
- amf: '8000'
- imei: '356938035643803'
+--- ue.yaml.orig        2020-12-19 23:17:01.179908465 +0000
++++ ue.yaml     2020-12-19 23:22:29.728491215 +0000
+@@ -1,10 +1,10 @@
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
 -supi: 'imsi-901700000000003'
 +supi: 'imsi-001010000000004'
+ 
+ # MCC and MNC values of the UE.
  plmn:
 -  mcc: 901
 -  mnc: 70
 +  mcc: 001
 +  mnc: 01
  
- smsOverNasSupported: true
+ # Permanent subscription key.
+ key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
+@@ -19,7 +19,7 @@
+ imei: '356938035643803'
+ 
+ # Domain Network Name (DNN)
 -dnn: 'internet'
 +dnn: 'ims'
  
+ # List of NSSAIs for the UE
  requestedNssai:
-   - sst:
 ```
 
 <h2 id="network_settings">Network settings of Open5GS 5GC and UERANSIM UE / RAN</h2>
@@ -602,13 +632,11 @@ sleep 5
 ./install/bin/open5gs-ausfd &
 ./install/bin/open5gs-udmd &
 ./install/bin/open5gs-udrd &
+./install/bin/open5gs-pcfd &
 ```
 Additional information.
 
-PCF was added in Open5GS v2.1.0 released on 2020.12.11. Since PCF connects only to SBI, `pcf.yaml` is used as it is in this configuration example. Please add the startup process of `open5gs-pcfd` as follows.
-```
-./install/bin/open5gs-pcfd &
-```
+PCF was added in Open5GS v2.1.0 released on 2020.12.11. Since PCF connects only to SBI, `pcf.yaml` is used as it is in this configuration example.
 
 <h3 id="run_up">Run Open5GS 5GC U-Plane1 & U-Plane2</h3>
 
@@ -637,9 +665,9 @@ https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
 Start UERANSIM agent as follows.
 ```
 # ./nr-agent
-UERANSIM v2.0.1
+UERANSIM v2.1.1
 INFO: Selected profile: "open5gs"
-2020-12-14 13:38:15.353 [INFO] [CONN] [air] TUN Bridge has been started.
+2020-12-20 00:44:05.024 [INFO] [CONN] [air] TUN Bridge has been started.
 ```
 
 <h4 id="create_new_gnb">Create a new gNB</h4>
@@ -651,15 +679,15 @@ gNB created with id: 1.
 ```
 The UERANSIM agent log when executed is as follows.
 ```
-2020-12-14 13:39:25.538 [INFO] [CONN] [gnb-1] Trying to establish SCTP connection... (192.168.0.111:38412)
-2020-12-14 13:39:25.560 [INFO] [CONN] [gnb-1] SCTP connection established
-2020-12-14 13:39:26.151 [SUCC] [PROC] [gnb-1] NGSetup procedure is successful
+2020-12-20 00:44:19.456 [INFO] [CONN] [gnb-1] Trying to establish SCTP connection... (192.168.0.111:38412)
+2020-12-20 00:44:19.583 [INFO] [CONN] [gnb-1] SCTP connection established
+2020-12-20 00:44:20.233 [SUCC] [PROC] [gnb-1] NGSetup procedure is successful
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-12/14 13:39:25.552: [amf] INFO: gNB-S1 accepted[192.168.0.131]:34920 in ng-path module (../src/amf/ngap-sctp.c:107)
-12/14 13:39:25.552: [amf] INFO: gNB-N1 accepted[192.168.0.131] in master_sm module (../src/amf/amf-sm.c:538)
-12/14 13:39:25.552: [amf] INFO: [Added] Number of gNBs is now 1 (../src/amf/context.c:869)
+12/20 00:44:19.569: [amf] INFO: gNB-S1 accepted[192.168.0.131]:51329 in ng-path module (../src/amf/ngap-sctp.c:107)
+12/20 00:44:19.569: [amf] INFO: gNB-N1 accepted[192.168.0.131] in master_sm module (../src/amf/amf-sm.c:538)
+12/20 00:44:19.569: [amf] INFO: [Added] Number of gNBs is now 1 (../src/amf/context.c:869)
 ```
 
 <h4 id="create_new_ue">Create a new UE</h4>
@@ -671,28 +699,28 @@ UE created: imsi-001010000000000.
 ```
 The UERANSIM agent log when executed is as follows.
 ```
-2020-12-14 13:40:48.212 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_DEREGISTERED/MM_DEREGISTERED__PLMN_SEARCH
-2020-12-14 13:40:48.432 [INFO] [CONN] [ue-001010000000000] UE connected to gNB.
-2020-12-14 13:40:48.444 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_DEREGISTERED/MM_DEREGISTERED__NORMAL_SERVICE
-2020-12-14 13:40:48.535 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_REGISTERED_INITIATED/MM_REGISTERED_INITIATED__NA
-2020-12-14 13:40:49.672 [INFO] [STATE] [ue-001010000000000] UE switches to state: RM_REGISTERED
-2020-12-14 13:40:49.674 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_REGISTERED/MM_REGISTERED__NORMAL_SERVICE
-2020-12-14 13:40:49.675 [SUCC] [PROC] [ue-001010000000000] Registration is successful
+2020-12-20 00:44:32.727 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_DEREGISTERED/MM_DEREGISTERED__PLMN_SEARCH
+2020-12-20 00:44:32.937 [INFO] [CONN] [ue-001010000000000] UE connected to gNB.
+2020-12-20 00:44:32.946 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_DEREGISTERED/MM_DEREGISTERED__NORMAL_SERVICE
+2020-12-20 00:44:33.037 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_REGISTERED_INITIATED/MM_REGISTERED_INITIATED__NA
+2020-12-20 00:44:34.002 [INFO] [STATE] [ue-001010000000000] UE switches to state: RM_REGISTERED
+2020-12-20 00:44:34.008 [INFO] [STATE] [ue-001010000000000] UE switches to state: MM_REGISTERED/MM_REGISTERED__NORMAL_SERVICE
+2020-12-20 00:44:34.008 [SUCC] [PROC] [ue-001010000000000] Registration is successful
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-12/14 13:40:48.759: [amf] INFO: [Added] Number of gNB-UEs is now 1 (../src/amf/context.c:1722)
-12/14 13:40:48.759: [amf] INFO: [suci-0-001-01-0000-0-0-0000000000] Unknown UE by SUCI (../src/amf/context.c:1289)
-12/14 13:40:48.759: [amf] INFO: [Added] Number of AMF-UEs is now 1 (../src/amf/context.c:1121)
-12/14 13:40:48.759: [app] WARNING: Try to discover [AUSF] (../lib/sbi/path.c:56)
-12/14 13:40:48.759: [amf] INFO: [909767d4-3e11-41eb-8f7e-f7e40c3bfd7b] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
-12/14 13:40:48.759: [amf] INFO: [909767d4-3e11-41eb-8f7e-f7e40c3bfd7b] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
-12/14 13:40:49.475: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
-12/14 13:40:49.476: [amf] INFO: [909888d0-3e11-41eb-8b39-ade30102bf44] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
-12/14 13:40:49.476: [amf] INFO: [909888d0-3e11-41eb-8b39-ade30102bf44] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
-12/14 13:40:49.479: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:56)
-12/14 13:40:49.480: [amf] INFO: [9097d3ae-3e11-41eb-802c-c3fb4f521c00] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
-12/14 13:40:49.480: [amf] INFO: [9097d3ae-3e11-41eb-802c-c3fb4f521c00] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
+12/20 00:44:33.139: [amf] INFO: [Added] Number of gNB-UEs is now 1 (../src/amf/context.c:1722)
+12/20 00:44:33.171: [amf] INFO: [suci-0-001-01-0000-0-0-0000000000] Unknown UE by SUCI (../src/amf/context.c:1289)
+12/20 00:44:33.171: [amf] INFO: [Added] Number of AMF-UEs is now 1 (../src/amf/context.c:1121)
+12/20 00:44:33.171: [app] WARNING: Try to discover [AUSF] (../lib/sbi/path.c:56)
+12/20 00:44:33.172: [amf] INFO: [0912d1a0-425c-41eb-9139-578ae965db06] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
+12/20 00:44:33.172: [amf] INFO: [0912d1a0-425c-41eb-9139-578ae965db06] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
+12/20 00:44:33.894: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
+12/20 00:44:33.895: [amf] INFO: [0916887c-425c-41eb-947c-f1a0f4db86fa] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
+12/20 00:44:33.895: [amf] INFO: [0916887c-425c-41eb-947c-f1a0f4db86fa] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
+12/20 00:44:33.900: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:56)
+12/20 00:44:33.901: [amf] INFO: [09128146-425c-41eb-abf9-235caede3e12] (NF-discover) NF registered (../src/amf/nnrf-handler.c:250)
+12/20 00:44:33.901: [amf] INFO: [09128146-425c-41eb-abf9-235caede3e12] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:294)
 ```
 
 <h4 id="create_new_pdu_session">Create a new PDU session</h4>
@@ -704,33 +732,33 @@ PDU session establishment has been triggered.
 ```
 The UERANSIM agent log when executed is as follows.
 ```
-2020-12-14 13:43:41.091 [INFO] [UEAPP] [ue-001010000000000] IPv4 connection setup with local IP: 10.45.0.2
-2020-12-14 13:43:41.096 [INFO] [TUN] [air] IPv4 PDU session established (ue-001010000000000, 10.45.0.2)
-2020-12-14 13:43:41.096 [INFO] [FLOW] [ue-001010000000000] PDU session established: PDU session identity value 1
-2020-12-14 13:43:41.098 [SUCC] [PROC] [ue-001010000000000] PDU Session Establishment is successful
-2020-12-14 13:43:41.110 [SUCC] [PROC] [gnb-1] PDU Session Establishment is successful
+2020-12-20 00:45:00.763 [SUCC] [PROC] [gnb-1] PDU Session Establishment is successful
+2020-12-20 00:45:00.786 [INFO] [UEAPP] [ue-001010000000000] IPv4 connection setup with local IP: 10.45.0.2
+2020-12-20 00:45:00.788 [INFO] [TUN] [air] IPv4 PDU session established (ue-001010000000000, 10.45.0.2)
+2020-12-20 00:45:00.795 [INFO] [FLOW] [ue-001010000000000] PDU session established: PDU session identity value 1
+2020-12-20 00:45:00.796 [SUCC] [PROC] [ue-001010000000000] PDU Session Establishment is successful
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-12/14 13:43:40.703: [amf] INFO: [Added] Number of AMF-Sessions is now 1 (../src/amf/context.c:1734)
-12/14 13:43:40.704: [smf] INFO: [Added] Number of SMF-UEs is now 1 (../src/smf/context.c:532)
-12/14 13:43:40.704: [smf] INFO: [Added] Number of SMF-Sessions is now 1 (../src/smf/context.c:1873)
-12/14 13:43:40.704: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
-12/14 13:43:40.705: [smf] INFO: [909888d0-3e11-41eb-8b39-ade30102bf44] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
-12/14 13:43:40.705: [smf] INFO: [909888d0-3e11-41eb-8b39-ade30102bf44] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
-12/14 13:43:40.707: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:56)
-12/14 13:43:40.707: [smf] INFO: [9097d3ae-3e11-41eb-802c-c3fb4f521c00] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
-12/14 13:43:40.708: [smf] INFO: [9097d3ae-3e11-41eb-802c-c3fb4f521c00] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
-12/14 13:43:40.709: [smf] INFO: UE SUPI:[imsi-001010000000000] DNN:[internet] IPv4:[10.45.0.2] IPv6:[] (../src/smf/npcf-handler.c:131)
-12/14 13:43:40.972: [app] WARNING: Try to discover [AMF] (../lib/sbi/path.c:56)
-12/14 13:43:40.974: [smf] INFO: [9098dd62-3e11-41eb-934a-d5747ff49191] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
-12/14 13:43:40.975: [smf] INFO: [9098dd62-3e11-41eb-934a-d5747ff49191] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
+12/20 00:45:00.497: [amf] INFO: [Added] Number of AMF-Sessions is now 1 (../src/amf/context.c:1734)
+12/20 00:45:00.540: [smf] INFO: [Added] Number of SMF-UEs is now 1 (../src/smf/context.c:532)
+12/20 00:45:00.541: [smf] INFO: [Added] Number of SMF-Sessions is now 1 (../src/smf/context.c:1873)
+12/20 00:45:00.545: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:56)
+12/20 00:45:00.546: [smf] INFO: [0916887c-425c-41eb-947c-f1a0f4db86fa] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
+12/20 00:45:00.547: [smf] INFO: [0916887c-425c-41eb-947c-f1a0f4db86fa] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
+12/20 00:45:00.556: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:56)
+12/20 00:45:00.557: [smf] INFO: [09128146-425c-41eb-abf9-235caede3e12] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
+12/20 00:45:00.557: [smf] INFO: [09128146-425c-41eb-abf9-235caede3e12] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
+12/20 00:45:00.564: [smf] INFO: UE SUPI:[imsi-001010000000000] DNN:[internet] IPv4:[10.45.0.2] IPv6:[] (../src/smf/npcf-handler.c:131)
+12/20 00:45:00.693: [app] WARNING: Try to discover [AMF] (../lib/sbi/path.c:56)
+12/20 00:45:00.694: [smf] INFO: [094892ae-425c-41eb-96fc-730667de79c6] (NF-discover) NF registered (../src/smf/nnrf-handler.c:248)
+12/20 00:45:00.695: [smf] INFO: [094892ae-425c-41eb-96fc-730667de79c6] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:292)
 ```
 The Open5GS U-Plane1 log when executed is as follows.
 ```
-12/14 13:43:40.847: [upf] INFO: [Added] Number of UPF-Sessions is now 1 (../src/upf/context.c:445)
-12/14 13:43:40.847: [upf] INFO: UE F-SEID[CP:0x1,UP:0x1] APN[internet] PDN-Type[1] IPv4[10.45.0.2] IPv6[] (../src/upf/context.c:603)
-12/14 13:43:41.110: [gtp] INFO: gtp_connect() [192.168.0.131]:2152 (../lib/gtp/path.c:58)
+12/20 00:45:00.592: [upf] INFO: [Added] Number of UPF-Sessions is now 1 (../src/upf/context.c:445)
+12/20 00:45:00.592: [upf] INFO: UE F-SEID[CP:0x1,UP:0x1] APN[internet] PDN-Type[1] IPv4[10.45.0.2] IPv6[] (../src/upf/context.c:603)
+12/20 00:45:00.722: [gtp] INFO: gtp_connect() [192.168.0.131]:2152 (../lib/gtp/path.c:58)
 ```
 On UERANSIM agent log, UE0 has been assigned the IP address `10.45.0.2` from Open5GS 5GC.
 
@@ -751,11 +779,11 @@ https://github.com/aligungr/UERANSIM/wiki/Using-the-TUN-interface
 The result of `ip addr show` on VM4 (UE0) is as follows.
 ```
 ...
-9: uesimtun: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 500
+4: uesimtun: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 500
     link/none 
     inet 10.45.0.2/32 scope global uesimtun
        valid_lft forever preferred_lft forever
-    inet6 fe80::3ff2:b9e1:bef0:8619/64 scope link stable-privacy 
+    inet6 fe80::bff2:2547:3968:c001/64 scope link stable-privacy 
        valid_lft forever preferred_lft forever
 ...
 ```
@@ -782,21 +810,21 @@ Execute `tcpdump` on VM2 (U-Plane1) and check that the packet goes through `if=o
 ```
 # ping google.com -I uesimtun
 PING google.com (216.58.197.14) from 10.45.0.2 uesimtun: 56(84) bytes of data.
-64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=1 ttl=114 time=32.1 ms
-64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=2 ttl=114 time=57.5 ms
-64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=3 ttl=114 time=42.1 ms
+64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=1 ttl=61 time=14.4 ms
+64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=2 ttl=61 time=12.5 ms
+64 bytes from kix06s02-in-f14.1e100.net (216.58.197.14): icmp_seq=3 ttl=61 time=11.7 ms
 ```
 - Run `tcpdump` on VM2 (U-Plane1)
 ```
 # tcpdump -i ogstun
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on ogstun, link-type RAW (Raw IP), capture size 262144 bytes
-13:59:04.905666 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 12, seq 1, length 64
-13:59:04.936518 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 12, seq 1, length 64
-13:59:05.908516 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 12, seq 2, length 64
-13:59:05.962596 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 12, seq 2, length 64
-13:59:06.909928 IP 10.45.0.2 > kix06s02-in-f14.1e100.net: ICMP echo request, id 12, seq 3, length 64
-13:59:06.948457 IP kix06s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 12, seq 3, length 64
+00:45:53.832361 IP 10.45.0.2 > kix05s02-in-f14.1e100.net: ICMP echo request, id 1, seq 1, length 64
+00:45:53.832404 IP 10.45.0.2 > kix05s02-in-f14.1e100.net: ICMP echo request, id 2, seq 2, length 64
+00:45:53.832918 IP 10.45.0.2 > kix05s02-in-f14.1e100.net: ICMP echo request, id 3, seq 3, length 64
+00:45:53.842472 IP kix05s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 1, seq 1, length 64
+00:45:53.842483 IP kix05s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 2, seq 2, length 64
+00:45:53.842584 IP kix05s02-in-f14.1e100.net > 10.45.0.2: ICMP echo reply, id 3, seq 3, length 64
 ```
 
 You could specify the TUNnel interface `uesimtun` to run almost any applications as in the following example using `ue-bind.sh` tool.
@@ -813,17 +841,17 @@ The document has moved
 ```
 - Run `tcpdump` on VM2 (U-Plane1)
 ```
-14:01:48.794176 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [S], seq 2727876800, win 64240, options [mss 1460,sackOK,TS val 2653630003 ecr 0,nop,wscale 7], length 0
-14:01:48.835181 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [S.], seq 18432001, ack 2727876801, win 65535, options [mss 1460], length 0
-14:01:48.836531 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 1, win 64240, length 0
-14:01:48.837943 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [P.], seq 1:75, ack 1, win 64240, length 74: HTTP: GET / HTTP/1.1
-14:01:48.838186 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [.], ack 75, win 65535, length 0
-14:01:49.158308 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [P.], seq 1:529, ack 75, win 65535, length 528: HTTP: HTTP/1.1 301 Moved Permanently
-14:01:49.167092 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 529, win 63784, length 0
-14:01:49.168066 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [F.], seq 75, ack 529, win 63784, length 0
-14:01:49.168953 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [.], ack 76, win 65535, length 0
-14:01:49.210434 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.55137: Flags [F.], seq 529, ack 76, win 65535, length 0
-14:01:49.213840 IP 10.45.0.2.55137 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 530, win 63784, length 0
+00:50:51.100400 IP 10.45.0.2.33919 > kix06s02-in-f14.1e100.net.http: Flags [S], seq 1194257022, win 64240, options [mss 1460,sackOK,TS val 307914460 ecr 0,nop,wscale 7], length 0
+00:50:51.109123 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.33919: Flags [S.], seq 20672001, ack 1194257023, win 65535, options [mss 1460], length 0
+00:50:51.111175 IP 10.45.0.2.33919 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 1, win 64240, length 0
+00:50:51.111958 IP 10.45.0.2.33919 > kix06s02-in-f14.1e100.net.http: Flags [P.], seq 1:75, ack 1, win 64240, length 74: HTTP: GET / HTTP/1.1
+00:50:51.112204 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.33919: Flags [.], ack 75, win 65535, length 0
+00:50:51.173792 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.33919: Flags [P.], seq 1:529, ack 75, win 65535, length 528: HTTP: HTTP/1.1 301 Moved Permanently
+00:50:51.176906 IP 10.45.0.2.33919 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 529, win 63784, length 0
+00:50:51.181623 IP 10.45.0.2.33919 > kix06s02-in-f14.1e100.net.http: Flags [F.], seq 75, ack 529, win 63784, length 0
+00:50:51.181809 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.33919: Flags [.], ack 76, win 65535, length 0
+00:50:51.204901 IP kix06s02-in-f14.1e100.net.http > 10.45.0.2.33919: Flags [F.], seq 529, ack 76, win 65535, length 0
+00:50:51.207210 IP 10.45.0.2.33919 > kix06s02-in-f14.1e100.net.http: Flags [.], ack 530, win 63784, length 0
 ```
 Please note that the `ping` tool does not work with `ue-binder.sh`. Please refer to [here](https://github.com/aligungr/UERANSIM/issues/186#issuecomment-729534464) for the reason.
 
@@ -836,6 +864,7 @@ In investigating 5G SA, I have built a simulation environment and can now use a 
 
 <h2 id="changelog">Changelog (summary)</h2>
 
-- [2020.12.14] Changed to UERANSIM v2.0.1 and updated the operation procedure.
-- [2020.12.13] Changed to Open5GS v2.1.0 and added a little about PCF.
+- [2020.12.20] Updated to UERANSIM v2.1.1.
+- [2020.12.14] Updated to UERANSIM v2.0.1 and updated the operation procedure.
+- [2020.12.13] Updated to Open5GS v2.1.0 and added a little about PCF.
 - [2020.11.29] Initial release.
