@@ -89,7 +89,7 @@ In addition, I have not confirmed the communication performance.
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
 - Open5GS v2.0.22 or later - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
+- UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM/wiki/Installation
 
 <h3 id="changes_cp">Changes in configuration files of Open5GS 5GC C-Plane</h3>
 
@@ -522,7 +522,7 @@ iptables -t nat -A POSTROUTING -s 10.47.0.0/16 ! -o ogstun3 -j MASQUERADE
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
 - Open5GS v2.0.22 or later - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
+- UERANSIM v1.0.9 or later - https://github.com/aligungr/UERANSIM/wiki/Installation
 
 Note. Install MongoDB with package manager on Open5GS 5GC C-Plane machine.
 [MongoDB Compass](https://www.mongodb.com/products/compass) is a convenient tool to look at the MongoDB database.
@@ -577,7 +577,7 @@ First, do an NG Setup between gNodeB and 5GC, then register the UE with 5GC and 
 
 Please refer to the following for usage of UERANSIM.
 
-https://github.com/aligungr/UERANSIM/wiki/Installation-and-Usage
+https://github.com/aligungr/UERANSIM/wiki/Usage
 
 <h4 id="start_gnb">Start gNB</h4>
 
@@ -706,7 +706,7 @@ Specify the UE0's TUNnel interface and try ping.
 
 Please refer to the following for usage of TUNnel interface.
 
-https://github.com/aligungr/UERANSIM/wiki/Using-the-TUN-interface
+https://github.com/aligungr/UERANSIM/wiki/Usage
 
 <h3 id="ping_1">Case for going through DN 10.45.0.0/16</h3>
 
