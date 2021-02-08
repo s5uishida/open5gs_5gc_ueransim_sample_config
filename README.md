@@ -89,7 +89,7 @@ In addition, I have not confirmed the communication performance.
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
 - Open5GS v2.0.22 or later (v2.1.4 used) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- UERANSIM v1.0.9 or later (v3.0.1 used) - https://github.com/aligungr/UERANSIM/wiki/Configuration
+- UERANSIM v1.0.9 or later (v3.0.1 used) - https://github.com/aligungr/UERANSIM/wiki/Installation
 
 <h3 id="changes_cp">Changes in configuration files of Open5GS 5GC C-Plane</h3>
 
