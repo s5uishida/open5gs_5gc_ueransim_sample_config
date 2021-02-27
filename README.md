@@ -61,6 +61,7 @@ Each VMs are as follows.
 | VM5 | UERANSIM UE | 192.168.0.132/24 | Ubuntu 20.04 | 1GB | 10GB |
 
 Subscriber Information (other information is the same) is as follows.  
+**Note. Please select OP or OPc according to the setting of UERANSIM UE configuration files.**
 | UE # | IMSI | APN | OP/OPc |
 | --- | --- | --- | --- |
 | UE0 | 001010000000000 | internet | OP |
