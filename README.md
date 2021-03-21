@@ -484,14 +484,12 @@ Next, configure the TUNnel interface and NAPT.
 ```
 ip tuntap add name ogstun mode tun
 ip addr add 10.45.0.1/16 dev ogstun
-ip addr add cafe::1/64 dev ogstun
 ip link set ogstun up
 
 iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
 
 ip tuntap add name ogstun2 mode tun
 ip addr add 10.46.0.1/16 dev ogstun2
-ip addr add cafe::2/64 dev ogstun2
 ip link set ogstun2 up
 
 iptables -t nat -A POSTROUTING -s 10.46.0.0/16 ! -o ogstun2 -j MASQUERADE
@@ -510,7 +508,6 @@ Next, configure the TUNnel interface and NAPT.
 ```
 ip tuntap add name ogstun3 mode tun
 ip addr add 10.47.0.1/16 dev ogstun3
-ip addr add cafe::3/64 dev ogstun3
 ip link set ogstun3 up
 
 iptables -t nat -A POSTROUTING -s 10.47.0.0/16 ! -o ogstun3 -j MASQUERADE
