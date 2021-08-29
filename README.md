@@ -48,8 +48,8 @@ The built simulation environment is as follows.
 <img src="./images/network-overview.png" title="./images/network-overview.png" width=1000px></img>
 
 The 5GC / UE / RAN used are as follows.
-- 5GC - Open5GS v2.0.22 or later (v2.2.0 used) - https://github.com/open5gs/open5gs
-- UE / RAN - UERANSIM v1.0.9 or later (v3.1.3 used) - https://github.com/aligungr/UERANSIM
+- 5GC - Open5GS v2.0.22 or later (v2.3.3 used) - https://github.com/open5gs/open5gs
+- UE / RAN - UERANSIM v1.0.9 or later (v3.2.3 used) - https://github.com/aligungr/UERANSIM
 
 Each VMs are as follows.  
 | VM # | SW & Role | IP address | OS | Memory (Min) | HDD (Min) |
@@ -89,8 +89,8 @@ In addition, I have not confirmed the communication performance.
 <h2 id="changes">Changes in configuration files of Open5GS 5GC and UERANSIM UE / RAN</h2>
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
-- Open5GS v2.0.22 or later (v2.2.0 used) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- UERANSIM v1.0.9 or later (v3.1.3 used) - https://github.com/aligungr/UERANSIM/wiki/Installation
+- Open5GS v2.0.22 or later (v2.3.3 used) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
+- UERANSIM v1.0.9 or later (v3.2.3 used) - https://github.com/aligungr/UERANSIM/wiki/Installation
 
 <h3 id="changes_cp">Changes in configuration files of Open5GS 5GC C-Plane</h3>
 
@@ -104,9 +104,9 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
 
 - `open5gs/install/etc/open5gs/amf.yaml`
 ```diff
---- amf.yaml.orig       2021-03-08 14:42:42.060073927 +0000
-+++ amf.yaml    2021-03-08 15:01:23.481611115 +0000
-@@ -169,25 +169,26 @@
+--- amf.yaml.orig       2021-04-20 14:19:04.000000000 +0000
++++ amf.yaml    2021-08-29 11:42:33.671647271 +0000
+@@ -180,23 +180,23 @@
        - addr: 127.0.0.5
          port: 7777
      ngap:
@@ -136,25 +136,26 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
 +          mnc: 01
          s_nssai:
            - sst: 1
-+            sd: 1
      security:
-         integrity_order : [ NIA2, NIA1, NIA0 ]
-         ciphering_order : [ NEA0, NEA1, NEA2 ]
 ```
 - `open5gs/install/etc/open5gs/smf.yaml`
 ```diff
---- smf.yaml.orig       2021-03-08 14:42:42.038073647 +0000
-+++ smf.yaml    2021-03-08 15:07:04.084034999 +0000
-@@ -298,11 +298,15 @@
+--- smf.yaml.orig       2021-08-29 10:31:09.958357944 +0000
++++ smf.yaml    2021-08-29 11:24:14.561432868 +0000
+@@ -332,7 +332,7 @@
        - addr: 127.0.0.4
-       - addr: ::1
+         port: 7777
      pfcp:
 -      - addr: 127.0.0.4
 +      - addr: 192.168.0.111
        - addr: ::1
+     gtpc:
+       - addr: 127.0.0.4
+@@ -342,7 +342,11 @@
+       - addr: ::1
      subnet:
        - addr: 10.45.0.1/16
--      - addr: cafe::1/64
+-      - addr: 2001:230:cafe::1/48
 +        dnn: internet
 +      - addr: 10.46.0.1/16
 +        dnn: internet2
@@ -163,7 +164,7 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
      dns:
        - 8.8.8.8
        - 8.8.4.4
-@@ -398,7 +402,10 @@
+@@ -438,7 +442,10 @@
  #
  upf:
      pfcp:
@@ -181,9 +182,9 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
 
 - `open5gs/install/etc/open5gs/upf.yaml`
 ```diff
---- upf.yaml.orig       2021-03-08 14:50:24.998625885 +0000
-+++ upf.yaml    2021-03-08 15:36:49.312532254 +0000
-@@ -139,12 +139,16 @@
+--- upf.yaml.orig       2021-08-29 10:41:25.138837531 +0000
++++ upf.yaml    2021-08-29 11:31:23.351000087 +0000
+@@ -150,12 +150,16 @@
  #
  upf:
      pfcp:
@@ -194,7 +195,7 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
 +      - addr: 192.168.0.112
      subnet:
        - addr: 10.45.0.1/16
--      - addr: cafe::1/64
+-      - addr: 2001:230:cafe::1/48
 +        dnn: internet
 +        dev: ogstun
 +      - addr: 10.46.0.1/16
@@ -209,9 +210,9 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
 
 - `open5gs/install/etc/open5gs/upf.yaml`
 ```diff
---- upf.yaml.orig       2021-03-08 14:56:07.466518288 +0000
-+++ upf.yaml    2021-03-08 15:35:40.917727488 +0000
-@@ -139,12 +139,13 @@
+--- upf.yaml.orig       2021-08-29 10:49:52.500332471 +0000
++++ upf.yaml    2021-08-29 11:33:14.125398472 +0000
+@@ -150,12 +150,13 @@
  #
  upf:
      pfcp:
@@ -222,7 +223,7 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
 +      - addr: 192.168.0.113
      subnet:
 -      - addr: 10.45.0.1/16
--      - addr: cafe::1/64
+-      - addr: 2001:230:cafe::1/48
 +      - addr: 10.47.0.1/16
 +        dnn: ims
 +        dev: ogstun3
@@ -237,8 +238,8 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
 
 - `UERANSIM/config/open5gs-gnb.yaml`
 ```diff
---- open5gs-gnb.yaml.orig       2021-02-11 11:03:28.000000000 +0000
-+++ open5gs-gnb.yaml    2021-02-23 14:59:10.000000000 +0000
+--- open5gs-gnb.yaml.orig       2021-04-20 11:07:30.000000000 +0000
++++ open5gs-gnb.yaml    2021-08-29 11:53:34.170068022 +0000
 @@ -1,17 +1,17 @@
 -mcc: '901'          # Mobile Country Code value
 -mnc: '70'           # Mobile Network Code value (2 or 3 digits)
@@ -275,10 +276,10 @@ First, copy `open5gs-ue0.yaml` from `open5gs-ue.yaml`.
 Next, edit `open5gs-ue0.yaml`.
 - `UERANSIM/config/open5gs-ue0.yaml`
 ```diff
---- open5gs-ue.yaml.orig        2021-02-28 06:32:38.000000000 +0000
-+++ open5gs-ue0.yaml    2021-03-08 14:31:41.086067568 +0000
+--- open5gs-ue.yaml.orig        2021-08-15 14:16:46.000000000 +0000
++++ open5gs-ue0.yaml    2021-08-29 11:46:16.784524371 +0000
 @@ -1,9 +1,9 @@
- # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 digits)
 -supi: 'imsi-901700000000001'
 +supi: 'imsi-001010000000000'
  # Mobile Country Code value of HPLMN
@@ -297,8 +298,8 @@ Next, edit `open5gs-ue0.yaml`.
 -  - 127.0.0.1
 +  - 192.168.0.131
  
- # Initial PDU sessions to be established
- sessions:
+ # UAC Access Identities Configuration
+ uacAic:
 ```
 
 <h4 id="changes_ue1">Changes in configuration files of UE1 (IMSI-001010000000001)</h4>
@@ -311,10 +312,10 @@ First, copy `open5gs-ue1.yaml` from `open5gs-ue.yaml`.
 Next, edit `open5gs-ue1.yaml`.
 - `UERANSIM/config/open5gs-ue1.yaml`
 ```diff
---- open5gs-ue.yaml.orig        2021-02-28 06:32:38.000000000 +0000
-+++ open5gs-ue1.yaml    2021-03-08 14:32:37.447088979 +0000
+--- open5gs-ue.yaml.orig        2021-08-15 14:16:46.000000000 +0000
++++ open5gs-ue1.yaml    2021-08-29 11:48:00.650373065 +0000
 @@ -1,9 +1,9 @@
- # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 digits)
 -supi: 'imsi-901700000000001'
 +supi: 'imsi-001010000000001'
  # Mobile Country Code value of HPLMN
@@ -326,13 +327,16 @@ Next, edit `open5gs-ue1.yaml`.
  
  # Permanent subscription key
  key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
-@@ -20,12 +20,12 @@
+@@ -20,7 +20,7 @@
  
  # List of gNB IP addresses for Radio Link Simulation
  gnbSearchList:
 -  - 127.0.0.1
 +  - 192.168.0.131
  
+ # UAC Access Identities Configuration
+ uacAic:
+@@ -39,7 +39,7 @@
  # Initial PDU sessions to be established
  sessions:
    - type: 'IPv4'
@@ -340,7 +344,7 @@ Next, edit `open5gs-ue1.yaml`.
 +    apn: 'internet2'
      slice:
        sst: 1
-       sd: 1
+ 
 ```
 
 <h4 id="changes_ue2">Changes in configuration files of UE2 (IMSI-001010000000002)</h4>
@@ -353,10 +357,10 @@ First, copy `open5gs-ue2.yaml` from `open5gs-ue.yaml`.
 Next, edit `open5gs-ue2.yaml`.
 - `UERANSIM/config/open5gs-ue2.yaml`
 ```diff
---- open5gs-ue.yaml.orig        2021-02-28 06:32:38.000000000 +0000
-+++ open5gs-ue2.yaml    2021-03-08 14:33:21.961521226 +0000
+--- open5gs-ue.yaml.orig        2021-08-15 14:16:46.000000000 +0000
++++ open5gs-ue2.yaml    2021-08-29 11:48:51.433767874 +0000
 @@ -1,9 +1,9 @@
- # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 digits)
 -supi: 'imsi-901700000000001'
 +supi: 'imsi-001010000000002'
  # Mobile Country Code value of HPLMN
@@ -368,13 +372,16 @@ Next, edit `open5gs-ue2.yaml`.
  
  # Permanent subscription key
  key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
-@@ -20,12 +20,12 @@
+@@ -20,7 +20,7 @@
  
  # List of gNB IP addresses for Radio Link Simulation
  gnbSearchList:
 -  - 127.0.0.1
 +  - 192.168.0.131
  
+ # UAC Access Identities Configuration
+ uacAic:
+@@ -39,7 +39,7 @@
  # Initial PDU sessions to be established
  sessions:
    - type: 'IPv4'
@@ -382,7 +389,7 @@ Next, edit `open5gs-ue2.yaml`.
 +    apn: 'internet2'
      slice:
        sst: 1
-       sd: 1
+ 
 ```
 
 <h4 id="changes_ue3">Changes in configuration files of UE3 (IMSI-001010000000003)</h4>
@@ -395,10 +402,10 @@ First, copy `open5gs-ue3.yaml` from `open5gs-ue.yaml`.
 Next, edit `open5gs-ue3.yaml`.
 - `UERANSIM/config/open5gs-ue3.yaml`
 ```diff
---- open5gs-ue.yaml.orig        2021-02-28 06:32:38.000000000 +0000
-+++ open5gs-ue3.yaml    2021-03-08 14:34:23.795294255 +0000
+--- open5gs-ue.yaml.orig        2021-08-15 14:16:46.000000000 +0000
++++ open5gs-ue3.yaml    2021-08-29 11:49:53.308233383 +0000
 @@ -1,9 +1,9 @@
- # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 digits)
 -supi: 'imsi-901700000000001'
 +supi: 'imsi-001010000000003'
  # Mobile Country Code value of HPLMN
@@ -410,13 +417,16 @@ Next, edit `open5gs-ue3.yaml`.
  
  # Permanent subscription key
  key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
-@@ -20,12 +20,12 @@
+@@ -20,7 +20,7 @@
  
  # List of gNB IP addresses for Radio Link Simulation
  gnbSearchList:
 -  - 127.0.0.1
 +  - 192.168.0.131
  
+ # UAC Access Identities Configuration
+ uacAic:
+@@ -39,7 +39,7 @@
  # Initial PDU sessions to be established
  sessions:
    - type: 'IPv4'
@@ -424,7 +434,7 @@ Next, edit `open5gs-ue3.yaml`.
 +    apn: 'ims'
      slice:
        sst: 1
-       sd: 1
+ 
 ```
 
 <h4 id="changes_ue4">Changes in configuration files of UE4 (IMSI-001010000000004)</h4>
@@ -437,10 +447,10 @@ First, copy `open5gs-ue4.yaml` from `open5gs-ue.yaml`.
 Next, edit `open5gs-ue4.yaml`.
 - `UERANSIM/config/open5gs-ue4.yaml`
 ```diff
---- open5gs-ue.yaml.orig        2021-02-28 06:32:38.000000000 +0000
-+++ open5gs-ue4.yaml    2021-03-08 14:35:01.301258088 +0000
+--- open5gs-ue.yaml.orig        2021-08-15 14:16:46.000000000 +0000
++++ open5gs-ue4.yaml    2021-08-29 11:50:34.908537710 +0000
 @@ -1,9 +1,9 @@
- # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
+ # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 digits)
 -supi: 'imsi-901700000000001'
 +supi: 'imsi-001010000000004'
  # Mobile Country Code value of HPLMN
@@ -452,13 +462,16 @@ Next, edit `open5gs-ue4.yaml`.
  
  # Permanent subscription key
  key: '465B5CE8B199B49FAA5F0A2EE238A6BC'
-@@ -20,12 +20,12 @@
+@@ -20,7 +20,7 @@
  
  # List of gNB IP addresses for Radio Link Simulation
  gnbSearchList:
 -  - 127.0.0.1
 +  - 192.168.0.131
  
+ # UAC Access Identities Configuration
+ uacAic:
+@@ -39,7 +39,7 @@
  # Initial PDU sessions to be established
  sessions:
    - type: 'IPv4'
@@ -466,7 +479,7 @@ Next, edit `open5gs-ue4.yaml`.
 +    apn: 'ims'
      slice:
        sst: 1
-       sd: 1
+ 
 ```
 
 <h2 id="network_settings">Network settings of Open5GS 5GC and UERANSIM UE / RAN</h2>
@@ -516,8 +529,8 @@ iptables -t nat -A POSTROUTING -s 10.47.0.0/16 ! -o ogstun3 -j MASQUERADE
 <h2 id="build">Build Open5GS and UERANSIM</h2>
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
-- Open5GS v2.0.22 or later (v2.2.0 used) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- UERANSIM v1.0.9 or later (v3.1.3 used) - https://github.com/aligungr/UERANSIM/wiki/Installation
+- Open5GS v2.0.22 or later (v2.3.3 used) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
+- UERANSIM v1.0.9 or later (v3.2.3 used) - https://github.com/aligungr/UERANSIM/wiki/Installation
 
 Note. Install MongoDB with package manager on Open5GS 5GC C-Plane machine.
 [MongoDB Compass](https://www.mongodb.com/products/compass) is a convenient tool to look at the MongoDB database.
@@ -548,11 +561,13 @@ sleep 5
 ./install/bin/open5gs-udrd &
 ./install/bin/open5gs-pcfd &
 ./install/bin/open5gs-nssfd &
+./install/bin/open5gs-bsfd &
 ```
 Additional information.
 
 PCF was added in Open5GS v2.1.0 released on 2020.12.11. Since PCF connects only to SBI, `pcf.yaml` is used as it is in this configuration example.
 And NSSF was added in Open5GS v2.2.0 released on 2021.03.08. Since NSSF also connects only to SBI, `nssf.yaml` is used as it is in this configuration example.
+And BSF was added in Open5GS v2.3.0 released on 2021.06.08. Since BSF also connects only to SBI, `bsf.yaml` is used as it is in this configuration example.
 
 <h3 id="run_up">Run Open5GS 5GC U-Plane1 & U-Plane2</h3>
 
@@ -581,19 +596,20 @@ https://github.com/aligungr/UERANSIM/wiki/Usage
 Start gNB as follows.
 ```
 # ./nr-gnb -c ../config/open5gs-gnb.yaml
-UERANSIM v3.1.3
-[2021-03-08 16:25:26.103] [sctp] [info] Trying to establish SCTP connection... (192.168.0.111:38412)
-[2021-03-08 16:25:26.107] [sctp] [info] SCTP connection established (192.168.0.111:38412)
-[2021-03-08 16:25:26.107] [sctp] [debug] SCTP association setup ascId[5]
-[2021-03-08 16:25:26.107] [ngap] [debug] Sending NG Setup Request
-[2021-03-08 16:25:26.108] [ngap] [debug] NG Setup Response received
-[2021-03-08 16:25:26.108] [ngap] [info] NG Setup procedure is successful
+UERANSIM v3.2.3
+[2021-08-29 12:19:37.422] [sctp] [info] Trying to establish SCTP connection... (192.168.0.111:38412)
+[2021-08-29 12:19:37.425] [sctp] [info] SCTP connection established (192.168.0.111:38412)
+[2021-08-29 12:19:37.425] [sctp] [debug] SCTP association setup ascId[5]
+[2021-08-29 12:19:37.425] [ngap] [debug] Sending NG Setup Request
+[2021-08-29 12:19:37.426] [ngap] [debug] NG Setup Response received
+[2021-08-29 12:19:37.427] [ngap] [info] NG Setup procedure is successful
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-03/08 16:25:26.106: [amf] INFO: gNB-S1 accepted[192.168.0.131]:35930 in ng-path module (../src/amf/ngap-sctp.c:107)
-03/08 16:25:26.106: [amf] INFO: gNB-N1 accepted[192.168.0.131] in master_sm module (../src/amf/amf-sm.c:592)
-03/08 16:25:26.106: [amf] INFO: [Added] Number of gNBs is now 1 (../src/amf/context.c:865)
+08/29 12:19:37.431: [amf] INFO: gNB-N2 accepted[192.168.0.131]:40444 in ng-path module (../src/amf/ngap-sctp.c:105)
+08/29 12:19:37.431: [amf] INFO: gNB-N2 accepted[192.168.0.131] in master_sm module (../src/amf/amf-sm.c:607)
+08/29 12:19:37.431: [amf] INFO: [GNB] max_num_of_ostreams : 30 (../src/amf/context.c:854)
+08/29 12:19:37.431: [amf] INFO: [Added] Number of gNBs is now 1 (../src/amf/context.c:869)
 ```
 
 <h4 id="start_ue">Start UE (UE0)</h4>
@@ -601,87 +617,102 @@ The Open5GS C-Plane log when executed is as follows.
 Start UE (UE0) as follows. This will register the UE with 5GC and establish a PDU session.
 ```
 # ./nr-ue -c ../config/open5gs-ue0.yaml 
-UERANSIM v3.1.3
-[2021-03-08 16:26:56.206] [nas] [debug] NAS layer started
-[2021-03-08 16:26:56.206] [rrc] [debug] RRC layer started
-[2021-03-08 16:26:56.207] [nas] [info] UE switches to state: MM-DEREGISTERED/PLMN-SEARCH
-[2021-03-08 16:26:56.208] [nas] [info] UE connected to gNB
-[2021-03-08 16:26:56.208] [nas] [info] UE switches to state: MM-DEREGISTERED/NORMAL-SERVICE
-[2021-03-08 16:26:56.208] [nas] [debug] Sending Initial Registration
-[2021-03-08 16:26:56.209] [nas] [info] UE switches to state: MM-REGISTERED-INITIATED/NA
-[2021-03-08 16:26:56.209] [rrc] [debug] Sending RRC Setup Request
-[2021-03-08 16:26:56.210] [rrc] [info] RRC connection established
-[2021-03-08 16:26:56.210] [nas] [info] UE switches to state: CM-CONNECTED
-[2021-03-08 16:26:56.221] [nas] [debug] Security Mode Command received
-[2021-03-08 16:26:56.221] [nas] [debug] Derived kNasEnc[3A8D65964FA2676984494AB12D071169] kNasInt[4ED0D87052564AE91A80BD1D4D9F2889]
-[2021-03-08 16:26:56.222] [nas] [debug] Selected integrity[2] ciphering[0]
-[2021-03-08 16:26:56.236] [nas] [debug] Registration accept received
-[2021-03-08 16:26:56.236] [nas] [info] UE switches to state: MM-REGISTERED/NORMAL-SERVICE
-[2021-03-08 16:26:56.236] [nas] [info] Initial Registration is successful
-[2021-03-08 16:26:56.237] [nas] [info] Initial PDU sessions are establishing [1#]
-[2021-03-08 16:26:56.237] [nas] [debug] Sending PDU session establishment request
-[2021-03-08 16:26:56.625] [nas] [info] PDU Session establishment is successful PSI[1]
-[2021-03-08 16:26:56.646] [app] [info] Connection setup for PDU session[1] is successful, TUN interface[uesimtun0, 10.45.0.2] is up.
+UERANSIM v3.2.3
+[2021-08-29 12:20:39.873] [nas] [info] UE switches to state [MM-DEREGISTERED/PLMN-SEARCH]
+[2021-08-29 12:20:39.873] [rrc] [debug] New signal detected for cell[1], total [1] cells in coverage
+[2021-08-29 12:20:39.874] [nas] [info] Selected plmn[001/01]
+[2021-08-29 12:20:39.874] [rrc] [info] Selected cell plmn[001/01] tac[1] category[SUITABLE]
+[2021-08-29 12:20:39.875] [nas] [info] UE switches to state [MM-DEREGISTERED/PS]
+[2021-08-29 12:20:39.875] [nas] [info] UE switches to state [MM-DEREGISTERED/NORMAL-SERVICE]
+[2021-08-29 12:20:39.875] [nas] [debug] Initial registration required due to [MM-DEREG-NORMAL-SERVICE]
+[2021-08-29 12:20:39.876] [nas] [debug] UAC access attempt is allowed for identity[0], category[MO_sig]
+[2021-08-29 12:20:39.877] [nas] [debug] Sending Initial Registration
+[2021-08-29 12:20:39.877] [rrc] [debug] Sending RRC Setup Request
+[2021-08-29 12:20:39.878] [nas] [info] UE switches to state [MM-REGISTER-INITIATED]
+[2021-08-29 12:20:39.878] [rrc] [info] RRC connection established
+[2021-08-29 12:20:39.879] [rrc] [info] UE switches to state [RRC-CONNECTED]
+[2021-08-29 12:20:39.879] [nas] [info] UE switches to state [CM-CONNECTED]
+[2021-08-29 12:20:39.886] [nas] [debug] Authentication Request received
+[2021-08-29 12:20:39.890] [nas] [debug] Security Mode Command received
+[2021-08-29 12:20:39.890] [nas] [debug] Selected integrity[2] ciphering[0]
+[2021-08-29 12:20:39.904] [nas] [debug] Registration accept received
+[2021-08-29 12:20:39.904] [nas] [info] UE switches to state [MM-REGISTERED/NORMAL-SERVICE]
+[2021-08-29 12:20:39.904] [nas] [debug] Sending Registration Complete
+[2021-08-29 12:20:39.905] [nas] [info] Initial Registration is successful
+[2021-08-29 12:20:39.905] [nas] [debug] Sending PDU Session Establishment Request
+[2021-08-29 12:20:39.905] [nas] [debug] UAC access attempt is allowed for identity[0], category[MO_sig]
+[2021-08-29 12:20:40.112] [nas] [debug] Configuration Update Command received
+[2021-08-29 12:20:40.135] [nas] [debug] PDU Session Establishment Accept received
+[2021-08-29 12:20:40.140] [nas] [info] PDU Session establishment is successful PSI[1]
+[2021-08-29 12:20:40.161] [app] [info] Connection setup for PDU session[1] is successful, TUN interface[uesimtun0, 10.45.0.2] is up.
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-03/08 16:26:56.207: [amf] INFO: InitialUEMessage (../src/amf/ngap-handler.c:349)
-03/08 16:26:56.207: [amf] INFO: [Added] Number of gNB-UEs is now 1 (../src/amf/context.c:1834)
-03/08 16:26:56.207: [amf] INFO:     RAN_UE_NGAP_ID[1] AMF_UE_NGAP_ID[1] TAC[1] CellID[0x10] (../src/amf/ngap-handler.c:480)
-03/08 16:26:56.207: [amf] INFO: [suci-0-001-01-0000-0-0-0000000000] Unknown UE by SUCI (../src/amf/context.c:1305)
-03/08 16:26:56.207: [amf] INFO: [Added] Number of AMF-UEs is now 1 (../src/amf/context.c:1122)
-03/08 16:26:56.207: [gmm] INFO: Registration request (../src/amf/gmm-sm.c:131)
-03/08 16:26:56.207: [gmm] INFO: [suci-0-001-01-0000-0-0-0000000000]    SUCI (../src/amf/gmm-handler.c:72)
-03/08 16:26:56.207: [app] WARNING: Try to discover [AUSF] (../lib/sbi/path.c:108)
-03/08 16:26:56.207: [amf] INFO: [db15559a-802a-41eb-ae85-1f753cb18135] (NF-discover) NF registered (../src/amf/nnrf-handler.c:332)
-03/08 16:26:56.208: [amf] INFO: [db15559a-802a-41eb-ae85-1f753cb18135] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:391)
-03/08 16:26:56.218: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:108)
-03/08 16:26:56.220: [amf] INFO: [db159654-802a-41eb-9f76-090b823c358d] (NF-discover) NF registered (../src/amf/nnrf-handler.c:332)
-03/08 16:26:56.220: [amf] INFO: [db159654-802a-41eb-9f76-090b823c358d] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:391)
-03/08 16:26:56.224: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:108)
-03/08 16:26:56.225: [amf] INFO: [db17b588-802a-41eb-81f0-53362eff3f45] (NF-discover) NF registered (../src/amf/nnrf-handler.c:332)
-03/08 16:26:56.226: [amf] INFO: [db17b588-802a-41eb-81f0-53362eff3f45] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:391)
-03/08 16:26:56.227: [app] WARNING: Try to discover [UDR] (../lib/sbi/path.c:108)
-03/08 16:26:56.228: [pcf] INFO: [db16e90a-802a-41eb-92d5-adb2599cb2db] (NF-discover) NF registered (../src/pcf/nnrf-handler.c:280)
-03/08 16:26:56.228: [pcf] INFO: [db16e90a-802a-41eb-92d5-adb2599cb2db] (NF-discover) NF Profile updated (../src/pcf/nnrf-handler.c:339)
-03/08 16:26:56.433: [gmm] INFO: [imsi-001010000000000] Registration complete (../src/amf/gmm-sm.c:969)
-03/08 16:26:56.434: [amf] INFO: [imsi-001010000000000] Configuration update command (../src/amf/nas-path.c:349)
-03/08 16:26:56.435: [gmm] INFO:     UTC [2021-03-08T16:26:56] Timezone[0]/DST[0] (../src/amf/gmm-build.c:509)
-03/08 16:26:56.435: [gmm] INFO:     LOCAL [2021-03-08T16:26:56] Timezone[0]/DST[0] (../src/amf/gmm-build.c:514)
-03/08 16:26:56.436: [amf] INFO: [Added] Number of AMF-Sessions is now 1 (../src/amf/context.c:1846)
-03/08 16:26:56.437: [gmm] INFO: UE SUPI[imsi-001010000000000] DNN[internet] S_NSSAI[SST:1 SD:0xffffff] (../src/amf/gmm-handler.c:812)
-03/08 16:26:56.439: [smf] INFO: [Added] Number of SMF-UEs is now 1 (../src/smf/context.c:899)
-03/08 16:26:56.440: [smf] INFO: [Added] Number of SMF-Sessions is now 1 (../src/smf/context.c:2518)
-03/08 16:26:56.441: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:108)
-03/08 16:26:56.443: [smf] INFO: [db159654-802a-41eb-9f76-090b823c358d] (NF-discover) NF registered (../src/smf/nnrf-handler.c:278)
-03/08 16:26:56.444: [smf] INFO: [db159654-802a-41eb-9f76-090b823c358d] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:323)
-03/08 16:26:56.446: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:108)
-03/08 16:26:56.447: [smf] INFO: [db17b588-802a-41eb-81f0-53362eff3f45] (NF-discover) NF registered (../src/smf/nnrf-handler.c:278)
-03/08 16:26:56.447: [smf] INFO: [db17b588-802a-41eb-81f0-53362eff3f45] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:323)
-03/08 16:26:56.448: [smf] INFO: UE SUPI[imsi-001010000000000] DNN[internet] IPv4[10.45.0.2] IPv6[] (../src/smf/npcf-handler.c:400)
-03/08 16:26:56.597: [app] WARNING: Try to discover [AMF] (../lib/sbi/path.c:108)
-03/08 16:26:56.600: [smf] INFO: [db2f2d1c-802a-41eb-bb75-272aaf517570] (NF-discover) NF registered (../src/smf/nnrf-handler.c:278)
-03/08 16:26:56.600: [smf] INFO: [db2f2d1c-802a-41eb-bb75-272aaf517570] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:323)
+08/29 12:20:39.899: [amf] INFO: InitialUEMessage (../src/amf/ngap-handler.c:361)
+08/29 12:20:39.899: [amf] INFO: [Added] Number of gNB-UEs is now 1 (../src/amf/context.c:2005)
+08/29 12:20:39.899: [amf] INFO:     RAN_UE_NGAP_ID[1] AMF_UE_NGAP_ID[1] TAC[1] CellID[0x10] (../src/amf/ngap-handler.c:497)
+08/29 12:20:39.899: [amf] INFO: [suci-0-001-01-0000-0-0-0000000000] Unknown UE by SUCI (../src/amf/context.c:1385)
+08/29 12:20:39.899: [amf] INFO: [Added] Number of AMF-UEs is now 1 (../src/amf/context.c:1187)
+08/29 12:20:39.899: [gmm] INFO: Registration request (../src/amf/gmm-sm.c:130)
+08/29 12:20:39.899: [gmm] INFO: [suci-0-001-01-0000-0-0-0000000000]    SUCI (../src/amf/gmm-handler.c:156)
+08/29 12:20:39.899: [app] WARNING: Try to discover [AUSF] (../lib/sbi/path.c:110)
+08/29 12:20:39.900: [amf] INFO: [4282527a-08c3-41ec-852e-a19b97faa37a] (NF-discover) NF registered (../src/amf/nnrf-handler.c:342)
+08/29 12:20:39.901: [amf] INFO: [4282527a-08c3-41ec-852e-a19b97faa37a] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:402)
+08/29 12:20:39.901: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:110)
+08/29 12:20:39.902: [ausf] INFO: [42823d94-08c3-41ec-ac23-4d8a680ffe69] (NF-discover) NF registered (../src/ausf/nnrf-handler.c:283)
+08/29 12:20:39.903: [ausf] INFO: [42823d94-08c3-41ec-ac23-4d8a680ffe69] (NF-discover) NF Profile updated (../src/ausf/nnrf-handler.c:329)
+08/29 12:20:39.910: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:110)
+08/29 12:20:39.912: [amf] INFO: [42823d94-08c3-41ec-ac23-4d8a680ffe69] (NF-discover) NF registered (../src/amf/nnrf-handler.c:342)
+08/29 12:20:39.912: [amf] INFO: [42823d94-08c3-41ec-ac23-4d8a680ffe69] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:402)
+08/29 12:20:39.917: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:110)
+08/29 12:20:39.918: [amf] INFO: [4287b076-08c3-41ec-b1c7-9514c0318b5f] (NF-discover) NF registered (../src/amf/nnrf-handler.c:342)
+08/29 12:20:39.918: [amf] INFO: [4287b076-08c3-41ec-b1c7-9514c0318b5f] (NF-discover) NF Profile updated (../src/amf/nnrf-handler.c:402)
+08/29 12:20:39.919: [app] WARNING: Try to discover [UDR] (../lib/sbi/path.c:110)
+08/29 12:20:39.920: [pcf] INFO: [42876ae4-08c3-41ec-86c2-2309d6481eea] (NF-discover) NF registered (../src/pcf/nnrf-handler.c:286)
+08/29 12:20:39.921: [pcf] INFO: [42876ae4-08c3-41ec-86c2-2309d6481eea] (NF-discover) NF Profile updated (../src/pcf/nnrf-handler.c:346)
+08/29 12:20:40.130: [gmm] INFO: [imsi-001010000000000] Registration complete (../src/amf/gmm-sm.c:1015)
+08/29 12:20:40.130: [amf] INFO: [imsi-001010000000000] Configuration update command (../src/amf/nas-path.c:389)
+08/29 12:20:40.130: [gmm] INFO:     UTC [2021-08-29T12:20:40] Timezone[0]/DST[0] (../src/amf/gmm-build.c:502)
+08/29 12:20:40.130: [gmm] INFO:     LOCAL [2021-08-29T12:20:40] Timezone[0]/DST[0] (../src/amf/gmm-build.c:507)
+08/29 12:20:40.132: [amf] INFO: [Added] Number of AMF-Sessions is now 1 (../src/amf/context.c:2017)
+08/29 12:20:40.132: [gmm] INFO: UE SUPI[imsi-001010000000000] DNN[internet] S_NSSAI[SST:1 SD:0xffffff] (../src/amf/gmm-handler.c:1041)
+08/29 12:20:40.135: [smf] INFO: [Added] Number of SMF-UEs is now 1 (../src/smf/context.c:793)
+08/29 12:20:40.136: [smf] INFO: [Added] Number of SMF-Sessions is now 1 (../src/smf/context.c:2508)
+08/29 12:20:40.137: [app] WARNING: Try to discover [UDM] (../lib/sbi/path.c:110)
+08/29 12:20:40.138: [smf] INFO: [42823d94-08c3-41ec-ac23-4d8a680ffe69] (NF-discover) NF registered (../src/smf/nnrf-handler.c:284)
+08/29 12:20:40.139: [smf] INFO: [42823d94-08c3-41ec-ac23-4d8a680ffe69] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:330)
+08/29 12:20:40.141: [app] WARNING: Try to discover [PCF] (../lib/sbi/path.c:110)
+08/29 12:20:40.143: [smf] INFO: [4287b076-08c3-41ec-b1c7-9514c0318b5f] (NF-discover) NF registered (../src/smf/nnrf-handler.c:284)
+08/29 12:20:40.143: [smf] INFO: [4287b076-08c3-41ec-b1c7-9514c0318b5f] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:330)
+08/29 12:20:40.145: [app] WARNING: Try to discover [BSF] (../lib/sbi/path.c:110)
+08/29 12:20:40.146: [pcf] INFO: [42828272-08c3-41ec-85f5-6d4d1ae6a985] (NF-discover) NF registered (../src/pcf/nnrf-handler.c:286)
+08/29 12:20:40.147: [pcf] INFO: [42828272-08c3-41ec-85f5-6d4d1ae6a985] (NF-discover) NF Profile updated (../src/pcf/nnrf-handler.c:346)
+08/29 12:20:40.148: [smf] INFO: UE SUPI[imsi-001010000000000] DNN[internet] IPv4[10.45.0.2] IPv6[] (../src/smf/npcf-handler.c:415)
+08/29 12:20:40.149: [gtp] INFO: gtp_connect() [192.168.0.112]:2152 (../lib/gtp/path.c:58)
+08/29 12:20:40.150: [app] WARNING: Try to discover [AMF] (../lib/sbi/path.c:110)
+08/29 12:20:40.151: [smf] INFO: [42865d84-08c3-41ec-81eb-69b024f50d09] (NF-discover) NF registered (../src/smf/nnrf-handler.c:284)
+08/29 12:20:40.151: [smf] INFO: [42865d84-08c3-41ec-81eb-69b024f50d09] (NF-discover) NF Profile updated (../src/smf/nnrf-handler.c:330)
 ```
 The Open5GS U-Plane1 log when executed is as follows.
 ```
-03/08 16:26:56.522: [upf] INFO: [Added] Number of UPF-Sessions is now 1 (../src/upf/context.c:448)
-03/08 16:26:56.522: [upf] INFO: UE F-SEID[CP:0x1 UP:0x1] APN[internet] PDN-Type[1] IPv4[10.45.0.2] IPv6[] (../src/upf/context.c:610)
-03/08 16:26:56.609: [gtp] INFO: gtp_connect() [192.168.0.131]:2152 (../lib/gtp/path.c:58)
+08/29 12:20:40.147: [upf] INFO: [Added] Number of UPF-Sessions is now 1 (../src/upf/context.c:160)
+08/29 12:20:40.147: [gtp] INFO: gtp_connect() [127.0.0.4]:2152 (../lib/gtp/path.c:58)
+08/29 12:20:40.147: [upf] INFO: UE F-SEID[CP:0x1 UP:0x1] APN[internet] PDN-Type[1] IPv4[10.45.0.2] IPv6[] (../src/upf/context.c:361)
+08/29 12:20:40.153: [gtp] INFO: gtp_connect() [192.168.0.131]:2152 (../lib/gtp/path.c:58)
 ```
 Looking at the console log of the `nr-ue` command, UE0 has been assigned the IP address `10.45.0.2` from Open5GS 5GC.
 ```
-[2021-03-08 16:26:56.646] [app] [info] Connection setup for PDU session[1] is successful, TUN interface[uesimtun0, 10.45.0.2] is up.
+[2021-08-29 12:20:40.161] [app] [info] Connection setup for PDU session[1] is successful, TUN interface[uesimtun0, 10.45.0.2] is up.
 ```
 Just in case, make sure it matches the IP address of the UE0's TUNnel interface.
 ```
 # ip addr show
 ...
-16: uesimtun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 500
+5: uesimtun0: <POINTOPOINT,PROMISC,NOTRAILERS,UP,LOWER_UP> mtu 1400 qdisc fq_codel state UNKNOWN group default qlen 500
     link/none 
     inet 10.45.0.2/32 scope global uesimtun0
        valid_lft forever preferred_lft forever
-    inet6 fe80::498e:251a:5a70:7495/64 scope link stable-privacy 
+    inet6 fe80::cb81:7519:c5e3:b23c/64 scope link stable-privacy 
        valid_lft forever preferred_lft forever
 ...
 ```
@@ -700,22 +731,22 @@ Execute `tcpdump` on VM2 (U-Plane1) and check that the packet goes through `if=o
 - `ping google.com` on VM5 (UE0)
 ```
 # ping google.com -I uesimtun0 -n
-PING google.com (216.58.197.14) from 10.45.0.2 uesimtun0: 56(84) bytes of data.
-64 bytes from 216.58.197.14: icmp_seq=1 ttl=61 time=13.6 ms
-64 bytes from 216.58.197.14: icmp_seq=2 ttl=61 time=13.3 ms
-64 bytes from 216.58.197.14: icmp_seq=3 ttl=61 time=13.5 ms
+PING google.com (172.217.161.206) from 10.45.0.2 uesimtun0: 56(84) bytes of data.
+64 bytes from 172.217.161.206: icmp_seq=1 ttl=61 time=43.9 ms
+64 bytes from 172.217.161.206: icmp_seq=2 ttl=61 time=46.2 ms
+64 bytes from 172.217.161.206: icmp_seq=3 ttl=61 time=51.1 ms
 ```
 - Run `tcpdump` on VM2 (U-Plane1)
 ```
 # tcpdump -i ogstun -n
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on ogstun, link-type RAW (Raw IP), capture size 262144 bytes
-16:33:29.049467 IP 10.45.0.2 > 216.58.197.14: ICMP echo request, id 12, seq 1, length 64
-16:33:29.061813 IP 216.58.197.14 > 10.45.0.2: ICMP echo reply, id 12, seq 1, length 64
-16:33:30.051349 IP 10.45.0.2 > 216.58.197.14: ICMP echo request, id 12, seq 2, length 64
-16:33:30.063491 IP 216.58.197.14 > 10.45.0.2: ICMP echo reply, id 12, seq 2, length 64
-16:33:31.052332 IP 10.45.0.2 > 216.58.197.14: ICMP echo request, id 12, seq 3, length 64
-16:33:31.064416 IP 216.58.197.14 > 10.45.0.2: ICMP echo reply, id 12, seq 3, length 64
+12:23:32.832271 IP 10.45.0.2 > 172.217.161.206: ICMP echo request, id 2, seq 1, length 64
+12:23:32.873621 IP 172.217.161.206 > 10.45.0.2: ICMP echo reply, id 2, seq 1, length 64
+12:23:33.834172 IP 10.45.0.2 > 172.217.161.206: ICMP echo request, id 2, seq 2, length 64
+12:23:33.877963 IP 172.217.161.206 > 10.45.0.2: ICMP echo reply, id 2, seq 2, length 64
+12:23:34.836635 IP 10.45.0.2 > 172.217.161.206: ICMP echo request, id 2, seq 3, length 64
+12:23:34.885181 IP 172.217.161.206 > 10.45.0.2: ICMP echo reply, id 2, seq 3, length 64
 ```
 
 You could specify the IP address assigned to the TUNnel interface to run almost any applications as in the following example using `nr-binder` tool.
@@ -732,17 +763,17 @@ The document has moved
 ```
 - Run `tcpdump` on VM2 (U-Plane1)
 ```
-16:34:32.578882 IP 10.45.0.2.52665 > 216.58.197.14.80: Flags [S], seq 2401622356, win 64240, options [mss 1460,sackOK,TS val 1081719107 ecr 0,nop,wscale 7], length 0
-16:34:32.590745 IP 216.58.197.14.80 > 10.45.0.2.52665: Flags [S.], seq 69440001, ack 2401622357, win 65535, options [mss 1460], length 0
-16:34:32.592629 IP 10.45.0.2.52665 > 216.58.197.14.80: Flags [.], ack 1, win 64240, length 0
-16:34:32.593150 IP 10.45.0.2.52665 > 216.58.197.14.80: Flags [P.], seq 1:75, ack 1, win 64240, length 74: HTTP: GET / HTTP/1.1
-16:34:32.593431 IP 216.58.197.14.80 > 10.45.0.2.52665: Flags [.], ack 75, win 65535, length 0
-16:34:32.643434 IP 216.58.197.14.80 > 10.45.0.2.52665: Flags [P.], seq 1:529, ack 75, win 65535, length 528: HTTP: HTTP/1.1 301 Moved Permanently
-16:34:32.645872 IP 10.45.0.2.52665 > 216.58.197.14.80: Flags [.], ack 529, win 63784, length 0
-16:34:32.646590 IP 10.45.0.2.52665 > 216.58.197.14.80: Flags [F.], seq 75, ack 529, win 63784, length 0
-16:34:32.646901 IP 216.58.197.14.80 > 10.45.0.2.52665: Flags [.], ack 76, win 65535, length 0
-16:34:32.658931 IP 216.58.197.14.80 > 10.45.0.2.52665: Flags [F.], seq 529, ack 76, win 65535, length 0
-16:34:32.660612 IP 10.45.0.2.52665 > 216.58.197.14.80: Flags [.], ack 530, win 63784, length 0
+12:24:47.324306 IP 10.45.0.2.54927 > 172.217.161.206.80: Flags [S], seq 413110957, win 65280, options [mss 1360,sackOK,TS val 254485831 ecr 0,nop,wscale 7], length 0
+12:24:47.371513 IP 172.217.161.206.80 > 10.45.0.2.54927: Flags [S.], seq 6336001, ack 413110958, win 65535, options [mss 1460], length 0
+12:24:47.373700 IP 10.45.0.2.54927 > 172.217.161.206.80: Flags [.], ack 1, win 65280, length 0
+12:24:47.374132 IP 10.45.0.2.54927 > 172.217.161.206.80: Flags [P.], seq 1:75, ack 1, win 65280, length 74: HTTP: GET / HTTP/1.1
+12:24:47.374321 IP 172.217.161.206.80 > 10.45.0.2.54927: Flags [.], ack 75, win 65535, length 0
+12:24:47.469691 IP 172.217.161.206.80 > 10.45.0.2.54927: Flags [P.], seq 1:529, ack 75, win 65535, length 528: HTTP: HTTP/1.1 301 Moved Permanently
+12:24:47.471025 IP 10.45.0.2.54927 > 172.217.161.206.80: Flags [.], ack 529, win 64752, length 0
+12:24:47.474272 IP 10.45.0.2.54927 > 172.217.161.206.80: Flags [F.], seq 75, ack 529, win 64752, length 0
+12:24:47.474550 IP 172.217.161.206.80 > 10.45.0.2.54927: Flags [.], ack 76, win 65535, length 0
+12:24:47.527897 IP 172.217.161.206.80 > 10.45.0.2.54927: Flags [F.], seq 529, ack 76, win 65535, length 0
+12:24:47.528962 IP 10.45.0.2.54927 > 172.217.161.206.80: Flags [.], ack 530, win 64752, length 0
 ```
 Please note that the `ping` tool does not work with `nr-binder`. Please refer to [here](https://github.com/aligungr/UERANSIM/issues/186#issuecomment-729534464) for the reason.
 
@@ -755,6 +786,7 @@ In investigating 5G SA, I have built a simulation environment and can now use a 
 
 <h2 id="changelog">Changelog (summary)</h2>
 
+- [2021.08.29] Updated to Open5GS v2.3.3 and added a little about BSF. And updated to UERANSIM v3.2.3.
 - [2021.03.09] Updated to Open5GS v2.2.0 and added a little about NSSF. And updated to UERANSIM v3.1.3.
 - [2021.01.28] Updated to UERANSIM v3.0.1 and updated the operation procedure.
 - [2020.12.23] Updated to UERANSIM v2.2.1 and updated the operation procedure.
