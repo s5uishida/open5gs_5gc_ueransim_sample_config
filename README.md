@@ -5,6 +5,18 @@ This briefly describes the overall and configuration files.
 
 ---
 
+<h2 id="conf_list">List of Sample Configurations</h2>
+
+1. [One SGW-C/PGW-C, Multiple SGW-Us/PGW-Us and APNs](https://github.com/s5uishida/open5gs_epc_oai_sample_config)
+2. One SMF, Multiple UPFs and DNNs (this article)
+3. [Select nearby UPF according to the connected gNodeB](https://github.com/s5uishida/open5gs_5gc_ueransim_nearby_upf_sample_config)
+4. [Select UPF based on S-NSSAI](https://github.com/s5uishida/open5gs_5gc_ueransim_snssai_upf_sample_config)
+5. [SCP Indirect communication Model C](https://github.com/s5uishida/open5gs_5gc_ueransim_scp_model_c_sample_config)
+6. [VoLTE and SMS Configuration for docker_open5gs](https://github.com/s5uishida/docker_open5gs_volte_sms_config)
+7. [Monitoring Metrics with Prometheus](https://github.com/s5uishida/open5gs_5gc_ueransim_metrics_sample_config)
+
+---
+
 <h2 id="toc">Table of Contents</h2>
 
 - [Overview of Open5GS 5GC Simulation Mobile Network](#overview)
