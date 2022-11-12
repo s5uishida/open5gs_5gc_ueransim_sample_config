@@ -547,15 +547,9 @@ Please refer to the following for building Open5GS and UERANSIM respectively.
 - Open5GS v2.4.7 - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
 - UERANSIM v3.2.6 - https://github.com/aligungr/UERANSIM/wiki/Installation
 
-Note. Install MongoDB with package manager on Open5GS 5GC C-Plane machine.
-[MongoDB Compass](https://www.mongodb.com/products/compass) is a convenient tool to look at the MongoDB database.
-```
-# apt update
-# apt install mongodb
-# systemctl start mongodb
-# systemctl enable mongodb
-```
+Install MongoDB on Open5GS 5GC C-Plane machine.
 It is not necessary to install MongoDB on Open5GS 5GC U-Plane machines.
+[MongoDB Compass](https://www.mongodb.com/products/compass) is a convenient tool to look at the MongoDB database.
 
 <h2 id="run">Run Open5GS 5GC and UERANSIM UE / RAN</h2>
 
