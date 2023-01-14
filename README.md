@@ -60,7 +60,7 @@ The built simulation environment is as follows.
 <img src="./images/network-overview.png" title="./images/network-overview.png" width=1000px></img>
 
 The 5GC / UE / RAN used are as follows.
-- 5GC - Open5GS v2.5.6 - https://github.com/open5gs/open5gs
+- 5GC - Open5GS v2.5.6 (2023.01.12) - https://github.com/open5gs/open5gs
 - UE / RAN - UERANSIM v3.2.6 - https://github.com/aligungr/UERANSIM
 
 Each VMs are as follows.  
@@ -101,7 +101,7 @@ In addition, I have not confirmed the communication performance.
 <h2 id="changes">Changes in configuration files of Open5GS 5GC and UERANSIM UE / RAN</h2>
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
-- Open5GS v2.5.6 - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
+- Open5GS v2.5.6 (2023.01.12) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
 - UERANSIM v3.2.6 - https://github.com/aligungr/UERANSIM/wiki/Installation
 
 <h3 id="changes_cp">Changes in configuration files of Open5GS 5GC C-Plane</h3>
@@ -550,7 +550,7 @@ iptables -t nat -A POSTROUTING -s 10.47.0.0/16 ! -o ogstun3 -j MASQUERADE
 <h2 id="build">Build Open5GS and UERANSIM</h2>
 
 Please refer to the following for building Open5GS and UERANSIM respectively.
-- Open5GS v2.5.6 - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
+- Open5GS v2.5.6 (2023.01.12) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
 - UERANSIM v3.2.6 - https://github.com/aligungr/UERANSIM/wiki/Installation
 
 Install MongoDB on Open5GS 5GC C-Plane machine.
