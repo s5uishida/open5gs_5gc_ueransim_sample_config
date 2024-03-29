@@ -858,7 +858,7 @@ listening on ogstun, link-type RAW (Raw IP), capture size 262144 bytes
 19:17:16.639589 IP 172.217.26.238 > 10.45.0.2: ICMP echo reply, id 13, seq 3, length 64
 ```
 
-You could specify the IP address assigned to the TUNnel interface to run almost any applications as in the following example using `nr-binder` tool.
+You could specify the IP address assigned to the TUNnel interface to run almost any applications (iperf3 etc.) as in the following example using `nr-binder` tool.
 
 - `curl google.com` on VM5 (UE0)
 ```
