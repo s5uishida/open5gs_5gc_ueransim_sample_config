@@ -897,6 +897,7 @@ In investigating 5G SA, I have built a simulation environment and can now use a 
 
 ## Changelog (summary)
 
+- [2024.03.31] Removed `gtpc` section in `smf.yaml`.
 - [2024.03.29] Updated to Open5GS v2.7.0 (2024.03.24).
 - [2023.01.12] Updated to Open5GS v2.5.6.
 - [2022.06.05] Updated to Open5GS v2.4.7 and UERANSIM v3.2.6.
