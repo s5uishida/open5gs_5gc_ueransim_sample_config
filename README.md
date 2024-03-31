@@ -173,8 +173,8 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
 - `open5gs/install/etc/open5gs/smf.yaml`
 ```diff
 --- smf.yaml.orig       2024-03-24 15:36:48.000000000 +0900
-+++ smf.yaml    2024-03-29 18:37:17.533142689 +0900
-@@ -19,35 +19,40 @@
++++ smf.yaml    2024-03-31 22:47:39.617010062 +0900
+@@ -19,35 +19,37 @@
          - uri: http://127.0.0.200:7777
    pfcp:
      server:
@@ -183,13 +183,13 @@ For the sake of simplicity, I used only DNN this time. Please refer to [here](ht
      client:
        upf:
 -        - address: 127.0.0.7
+-  gtpc:
+-    server:
+-      - address: 127.0.0.4
 +        - address: 192.168.0.112
 +          dnn: [internet, internet2]
 +        - address: 192.168.0.113
 +          dnn: ims
-   gtpc:
-     server:
-       - address: 127.0.0.4
    gtpu:
      server:
 -      - address: 127.0.0.4
