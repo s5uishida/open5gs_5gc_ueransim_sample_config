@@ -106,13 +106,13 @@ Please refer to the following for building Open5GS and UERANSIM respectively.
 
 ### Changes in configuration files of Open5GS 5GC C-Plane
 
-The following parameters including DNN can be used in the logic that selects UPF as the connection destination by PFCP.
+The following parameters can be used in the logic that selects UPF as the connection destination by PFCP.
 
 - DNN
 - TAC (Tracking Area Code)
 - nr_CellID
 
-For the sake of simplicity, I used only DNN this time. Please refer to [here](https://github.com/open5gs/open5gs/pull/560#issue-483001043) for the logic to select UPF.
+For the sake of simplicity, I used only DNN this time.
 
 - `open5gs/install/etc/open5gs/amf.yaml`
 ```diff
